@@ -1,0 +1,21 @@
+# Python cache files
+__pycache__/
+*.pyc
+
+# Real settings and passwords (.env.example is the safe copy that goes into git)
+.env
+
+# Dataset files are too big for git, so only the empty data/ folder is kept
+data/*
+!data/.gitkeep
+
+# macOS metadata files
+._*
+.DS_Store
+
+# Personal editor settings
+.vscode/
+
+# Personal planning notes
+Project_1_Multimodal_RAG_Agent.md
+Project_1_Detailed_Schedule.md

@@ -1,0 +1,2 @@
+# Python libraries for this project.
+# PyTorch is not listed here: it's installed separately because it needs a special GPU download link.
