@@ -1,0 +1,12 @@
+# Files Docker leaves out of the image.
+# data/, models/ and logs/ are mounted at run time instead (see docker-compose.yml).
+data/
+models/
+logs/
+.git/
+.env
+.vscode/
+.pytest_cache/
+**/__pycache__/
+._*
+Project_1_*.md

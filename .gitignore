@@ -19,3 +19,12 @@ data/*
 # Personal planning notes
 Project_1_Multimodal_RAG_Agent.md
 Project_1_Detailed_Schedule.md
+
+# pytest cache
+.pytest_cache/
+
+# Downloaded model weights
+models/
+
+# Request logs
+logs/

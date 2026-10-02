@@ -1,0 +1,731 @@
+{
+  "summary": {
+    "routing": "30/30",
+    "text": {
+      "right_outcome": "15/15",
+      "avg_seconds": 0.747,
+      "ragas_graded": 15,
+      "faithfulness": 0.595,
+      "answer_relevancy": 0.78,
+      "context_precision": 0.763,
+      "context_recall": 0.933
+    },
+    "image": {
+      "right_outcome": "9/13",
+      "avg_seconds": 2.223,
+      "ragas_graded": 13,
+      "faithfulness": 0.381,
+      "answer_relevancy": 0.582,
+      "context_precision": 0.462,
+      "context_recall": 0.231
+    },
+    "none": {
+      "right_outcome": "2/2",
+      "avg_seconds": 0.1
+    }
+  },
+  "questions": [
+    {
+      "id": 1,
+      "type": "text",
+      "question": "What do giraffes mainly eat?",
+      "expected_answer": "Leaves, fruits and flowers of woody plants, mainly acacia species.",
+      "path": "text",
+      "answer": "Giraffes mainly eat the twigs of trees, preferring those of the subfamily Acacieae and the genera Commiphora and Terminalia, which are important sources of calcium and protein to sustain their growth rate. [1]",
+      "cited": [
+        "Giraffe.pdf"
+      ],
+      "contexts": [
+        "Giraffes browse on the twigs of trees, preferring those of the subfamily Acacieae and the genera Commiphora and Terminalia, which are important sources of calcium and protein to sustain the giraffe's growth rate. They also feed on shrubs, grass and fruit.: 324 A giraffe eats around 34 kg (75 lb) of plant matter daily. When stressed, giraffes may chew on large branches, stripping them of bark.: 325 Giraffes are also recorded to chew old bones.: 102 During the wet season, food is abundant and giraffes are more spread out, while during the dry season, they gather around the remaining evergreen trees and bushes. Mothers tend to feed in open areas, presumably to make it easier to detect predators, although this may reduce their feeding efficiency. As a ruminant, the giraffe first chews its food, then swallows it for processing and then visibly passes the half-digested cud up the neck and back into the mouth to chew again.: 78\u201379 A giraffe requires less food than many other herbivores because the foliage it eats has more concentrated nutrients and it has a more efficient digestive system.",
+        "As a ruminant, the giraffe first chews its food, then swallows it for processing and then visibly passes the half-digested cud up the neck and back into the mouth to chew again.: 78\u201379 A giraffe requires less food than many other herbivores because the foliage it eats has more concentrated nutrients and it has a more efficient digestive system. The animal's faeces come in Behaviour and ecology Habitat and feeding",
+        "Giraffes have oesophageal muscles that are strong enough to allow regurgitation of food from the stomach up the neck and into the mouth for rumination.: 78 They have four-chambered stomachs, which are adapted to their specialized diet. The intestines of an adult giraffe measure more than 70 m (230 ft) in length and have a relatively small ratio of small to large intestine. Giraffes have a small, compact liver.: 76 In fetuses there may be a small gallbladder that vanishes before birth. Giraffes usually inhabit savannahs and open woodlands. They prefer areas dominated by Acacieae, Commiphora, Combretum and Terminalia trees over Brachystegia which are more densely spaced.: 322 The Angolan giraffe can be found in desert environments. Giraffes browse on the twigs of trees, preferring those of the subfamily Acacieae and the genera Commiphora and Terminalia, which are important sources of calcium and protein to sustain the giraffe's growth rate.",
+        "Their scattered range extends from Chad in the north to South Africa in the south and from Niger in the west to Somalia in the east. Giraffes usually inhabit savannahs and woodlands. Their food source is leaves, fruits, and flowers of woody plants, primarily acacia species, which they browse at heights most other ground-based herbivores cannot reach. Lions, leopards, spotted hyenas, and African wild dogs may prey upon giraffes. Giraffes live in herds of related females and their offspring or bachelor herds of unrelated adult males but are gregarious and may gather in large groups. Males establish social hierarchies through \"necking\", combat bouts in which they use the neck as a weapon. Dominant males gain mating access to females, which bear sole responsibility for rearing the young. Giraffes have intrigued various ancient and modern cultures for their peculiar appearance and have often been featured in paintings, books, and cartoons. They have been extirpated from many parts of their former range."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 2.3,
+      "ragas": {
+        "faithfulness": 0.429,
+        "answer_relevancy": 0.841,
+        "context_precision": 1.0,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": 2,
+      "type": "text",
+      "question": "How many living giraffe species did researchers recently propose?",
+      "expected_answer": "Four living species, with seven subspecies.",
+      "path": "text",
+      "answer": "Researchers recently proposed the existence of four species of giraffe [1].",
+      "cited": [
+        "Giraffe.pdf"
+      ],
+      "contexts": [
+        "The Masai and reticulated subspecies are endangered, and the Rothschild subspecies is near threatened. The Nubian subspecies is critically endangered. In 2025, the IUCN accepted four species of giraffe with seven subspecies. The primary causes for giraffe population declines are habitat loss and direct killing for bushmeat markets. Giraffes have been extirpated from much of their historic range, including Eritrea, Guinea, Mauritania and Senegal. They may also have disappeared from Angola, Mali, and Nigeria, but have been introduced to Rwanda and Eswatini. As of 2010, there were more than 1,600 in captivity at Species360registered zoos. Habitat destruction has hurt the giraffe. In the Sahel, the need for firewood and grazing room for livestock has led to deforestation. Normally, giraffes can coexist with livestock, since they avoid direct competition by feeding above them. In 2017, severe droughts in northern Kenya led to increased tensions over land and the killing of wildlife by herders, with giraffe populations being particularly hit.",
+        "The researchers suggested the existence of four species, which have not exchanged genetic information between each other for one to two million years. A 2020 study showed that, depending on the method chosen, different taxonomic hypotheses recognizing from two to six species can be considered for the genus Giraffa. That study also found that multispecies coalescent methods can lead to taxonomic over-splitting, as those methods delimit geographic structures rather than species. The three-species hypothesis, which recognises G. camelopardalis, G. giraffa, and G. tippelskirchi, is highly supported by phylogenetic analyses and also corroborated by most population genetic and multispecies coalescent analyses. A 2021 whole genome sequencing study suggests the existence of four distinct species and seven subspecies, which was supported by a 2024 study of cranial morphology. A 2024 study found a higher amount of ancient gene flow than expected between populations. The cladogram below shows the phylogenetic relationship between the four species and seven subspecies based on a 2021 genome analysis.",
+        "Masai giraffes in Tanzania sort themselves into different subpopulations of 60\u201390 adult females with overlapping ranges, each of which differ in reproductive rates and calf mortality. Dispersal is male biased, and can include spatial and/or social dispersal. Adult female subpopulations are connected by males into super communities of around 300 animals. The number of giraffes in a group can range from one to 66 individuals. Giraffe groups tend to be sex-segregated, although mixed-sex groups made of adult females and young males also occur. Female groups may be matrilineally related. Generally, females are more selective than males when deciding which individuals of the same sex they associate with. Particularly stable giraffe groups are those made of mothers and their young, which can last weeks or months. Young males also form groups and will engage in playfights. However, as they get older, males become more solitary but may also associate in pairs or with female groups.",
+        "Giraffes Temporal range: Miocene to Recent Masai giraffe (Giraffa tippelskirchi) in Mikumi National Park, Tanzania Conservation status Vulnerable (IUCN 3.1) (As the species complex) Scientific classification Kingdom: Animalia Phylum: Chordata Class: Mammalia Order: Artiodactyla Family: Giraffidae Subfamily: Giraffinae Genus: Giraffa Brisson, 1762 Species See taxonomy Giraffe Giraffes (genus Giraffa) are large African hoofed mammals. They are the tallest living terrestrial animals and the largest ruminants on Earth. They are classified under the family Giraffidae, along with their closest extant relative, the okapi. Traditionally, giraffes have been thought of as one species, Giraffa camelopardalis, with nine subspecies. Most recently, researchers proposed dividing them into four extant species, with seven subspecies, which can be distinguished morphologically by their fur coat patterns. Six valid extinct species of Giraffa are known from the fossil record. The distinguishing characteristics of giraffes are their extremely long neck and legs, horn-like ossicones, and spotted coat patterns. Their scattered range extends from Chad in the north to South Africa in the south and from Niger in the west to Somalia in the east.",
+        "reticulata \u2060 \u2060 (no subspecies) \u2060 \u2060 \u2060(reticulated giraffe) \u2060 \u2060 \u2060 \"Camelopard\" (/k\u0259\u02c8m\u025bl\u0259\u02ccp\u0251\u02d0rd/) is an archaic English name for the giraffe; it derives from the Ancient Greek \u03ba\u03b1\u03bc\u03b7\u03bb\u03bf\u03c0\u03ac\u03c1\u03b4\u03b1\u03bb\u03b9\u03c2 (kam\u0113lop\u00e1rdalis), from \u03ba\u03ac\u03bc\u03b7\u03bb\u03bf\u03c2 (k\u00e1m\u0113los), \"camel\", and \u03c0\u03ac\u03c1\u03b4\u03b1\u03bb\u03b9\u03c2 (p\u00e1rdalis), \"leopard\", referring to its camel-like shape and leopard-like colouration. Carl Linnaeus originally classified living giraffes as one species in 1758. He gave it the binomial name Cervus camelopardalis. Mathurin Jacques Brisson coined the generic name Giraffa in 1762. During the 1900s, various taxonomies with two or three species were proposed. A 2007 study on the genetics of giraffes using mitochondrial DNA suggested at least six lineages could be recognised as species. A 2011 study using detailed analyses of the morphology of giraffes, and application of the phylogenetic species concept, described eight species of living giraffes. A 2016 study also concluded that living giraffes consist of multiple species. The researchers suggested the existence of four species, which have not exchanged genetic information between each other for one to two million years."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 0.3,
+      "ragas": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.952,
+        "context_precision": 0.533,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": 3,
+      "type": "text",
+      "question": "How many living elephant species are recognised, and which are they?",
+      "expected_answer": "Three: the African bush elephant, the African forest elephant and the Asian elephant.",
+      "path": "text",
+      "answer": "Three species of living elephants are recognised; the African bush elephant (Loxodonta africana), forest elephant (Loxodonta cyclotis), and Asian elephant (Elephas maximus). [1]",
+      "cited": [
+        "Elephant.pdf"
+      ],
+      "contexts": [
+        "Elephants Temporal range: A female African bush elephant in Mikumi National Park, Tanzania Scientific classification Kingdom: Animalia Phylum: Chordata Class: Mammalia Order: Proboscidea Superfamily: Elephantoidea Family: Elephantidae Living genera Loxodonta Anonymous, 1827 Elephas Linnaeus, 1758 For extinct genera, see Elephantidae Elephant Elephants are the largest living land animals. Three living species are currently recognised: the African bush elephant (Loxodonta africana), the African forest elephant (L. cyclotis), and the Asian elephant (Elephas maximus). They are the only surviving members of the family Elephantidae and the order Proboscidea; extinct relatives include mammoths and mastodons. Distinctive features of elephants include a long proboscis called a trunk, tusks, large ear flaps, pillar-like legs, and tough but sensitive grey skin. The trunk is prehensile, bringing food and water to the mouth and grasping objects. Tusks, which are derived from the incisor teeth, serve both as weapons and as tools for moving objects and digging. The large ear flaps assist in maintaining a constant body temperature as well as in communication.",
+        "\u2060 \u2060 Trichechidae \u2060 \u2060 A cladogram of the elephants within Afrotheria based on molecular evidence \u2060Proboscidea \u2060 early proboscideans, e.g. Moeritherium \u2060 \u2060 \u2060 Deinotheriidae \u2060 \u2060Elephantiformes \u2060 Mammutidae \u2060 \u2060 \u2060 Gomphotheriidae \u2060 \u2060 \u2060 Stegodontidae \u2060 \u2060Elephantidae \u2060 \u2060 Loxodonta \u2060 \u2060 Palaeoloxodon \u2060 \u2060 \u2060 \u2060 \u2060 \u2060 \u2060 \u2060 \u2060 Three species of living elephants are recognised; the African bush elephant (Loxodonta africana), forest elephant (Loxodonta cyclotis), and Asian elephant (Elephas maximus). African elephants were traditionally considered a single species, Loxodonta africana, but molecular studies have affirmed their status as separate species. Mammoths (Mammuthus) are nested within living elephants as they are more closely related to Asian elephants than to African elephants. Another extinct genus of elephant, Palaeoloxodon, is also recognised, which appears to have close affinities with African elephants and to have hybridised with African forest elephants. Palaeoloxodon was even larger than modern species, all exceeding 4 metres in height and 10 tonnes in body mass, with P.",
+        "Distribution of living elephant species \u2060Afrotheria \u2060Afroinsectiphilia \u2060Tubulidentata Orycteropodidae \u2060 \u2060Afroinsectivora \u2060Macroscelidea Macroscelididae \u2060 \u2060Afrosoricida \u2060 Chrysochloridae \u2060 \u2060 Tenrecidae \u2060 \u2060 \u2060 \u2060 \u2060Paenungulata \u2060Hyracoidea Procaviidae \u2060 \u2060Tethytheria \u2060Proboscidea Elephantidae \u2060 \u2060Sirenia \u2060 Dugongidae \u2060 \u2060 \u2060 communication over long distances. Elephant intelligence has been compared with that of primates and cetaceans. They appear to have self-awareness, and possibly show concern for dying and dead individuals of their kind. African bush elephants and Asian elephants are listed as endangered and African forest elephants as critically endangered on the IUCN Red Lists. One of the biggest threats to elephant populations is the ivory trade, as the animals are poached for their ivory tusks. Other threats to wild elephants include habitat destruction and conflicts with local people. Elephants are used as working animals in Asia. In the past, they were used in war; today, they are often controversially put on display in zoos, or employed for entertainment in circuses."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 0.7,
+      "ragas": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.929,
+        "context_precision": 1.0,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": 4,
+      "type": "text",
+      "question": "What are elephant tusks derived from?",
+      "expected_answer": "From the incisor teeth.",
+      "path": "text",
+      "answer": "Elephant tusks are derived from modified second incisors in the upper jaw. [1]",
+      "cited": [
+        "Elephant.pdf"
+      ],
+      "contexts": [
+        "Molar of an adult African bush elephant Asian elephant eating tree bark, using its tusks to peel it off Asian elephant skin The tusks of an elephant are modified second incisors in the upper jaw. They replace deciduous milk teeth at 6\u201312 months of age and keep growing at about 17 cm (7 in) a year. As the tusk develops, it is topped with smooth, cone-shaped enamel that eventually wanes. The dentine is known as ivory and has a cross-section of intersecting lines, known as \"engine turning\", which create diamond-shaped patterns. Being living tissue, tusks are fairly soft and about as dense as the mineral calcite. The tusk protrudes from a socket in the skull, and most of it is external. At least one-third of the tusk contains the pulp, and some have nerves that stretch even further. Thus, it would be difficult to remove it without harming the animal.",
+        "Thus, it would be difficult to remove it without harming the animal. When removed, ivory will dry up and crack if not kept cool and wet. Tusks function in digging, debarking, marking, moving objects, and fighting. Elephants are usually right- or left-tusked, similar to humans, who are typically right- or left-handed. The dominant, or \"master\" tusk, is typically more worn down, as it is shorter and blunter. For African elephants, tusks are present in both males and females and are around the same length in both sexes, reaching up to 300 cm (9 ft 10 in), but those of males tend to be more massive. In the Asian species, only the males have large tusks. Female Asians have very small tusks, or none at all. Tuskless males exist and are particularly common among Sri Lankan elephants. Asian males can have tusks as long as Africans', but they are usually slimmer and lighter; the largest recorded was 302 cm (9 ft 11 in) long and weighed 39 kg (86 lb).",
+        "Asian males can have tusks as long as Africans', but they are usually slimmer and lighter; the largest recorded was 302 cm (9 ft 11 in) long and weighed 39 kg (86 lb). Hunting for elephant ivory in Africa and Asia has resulted in an effective selection pressure for shorter tusks and tusklessness. An elephant's skin is generally very tough, at 2.5 cm (1 in) thick on the back and parts of the head. The skin around the mouth, anus, and inside of the ear is considerably thinner. Elephants are typically grey, but African elephants look brown or reddish after rolling in coloured mud. Asian elephants have some patches of depigmentation, particularly on the head. Calves have brownish or reddish hair, with the head and back being particularly hairy. As elephants mature, their hair darkens and becomes sparser, but dense concentrations of hair and bristles remain on the tip of the tail and parts of the head and genitals."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 0.4,
+      "ragas": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.872,
+        "context_precision": 1.0,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": 5,
+      "type": "text",
+      "question": "What is the best-supported explanation for zebra stripes?",
+      "expected_answer": "Most evidence supports the stripes being a deterrent for biting flies.",
+      "path": "text",
+      "answer": "The thermoregulatory hypothesis is best-supported, as a 2019 study found that where the faster air currents of the warmer black stripes meet those of the white, air swirls form, helping to cool zebras. [5]",
+      "cited": [
+        "Zebra.pdf"
+      ],
+      "contexts": [
+        "There have even been morphs with white spots on dark backgrounds. Striping abnormalities have been linked to inbreeding. Albino zebras have been recorded in the forests of Mount Kenya, with the dark stripes being blonde. The quagga had brown and white stripes on the head and neck, brown upper parts and a white belly, tail and legs. The function of stripes in zebras has been discussed among biologists since at least the 19th century. Popular hypotheses include the following: The crypsis hypothesis suggests that the stripes allow the animal to blend in with its environment or break up its outline. This was the earliest hypothesis and proponents argued that the stripes were particularly suited for camouflage in tall grassland and woodland habitat. Alfred Wallace also wrote in 1896 that stripes make zebras less noticeable at night. Biologist Tim Caro notes that zebras graze in open habitat and do not behave cryptically, being noisy, fast, and social and do not freeze when a predator is near.",
+        "Comparative illustration of living zebra species Closeup of mountain zebra stripes Striping patterns are unique to an individual and heritable. During embryonic development, the stripes appear at eight months, but the patterns may be determined at three to five weeks. For each species there is a point in embryonic development where the stripes are perpendicular to the dorsal line and spaced 0.4 mm (0.016 in) apart. However, this happens at three weeks of development for the plains zebra, four weeks for the mountain zebra, and five for Gr\u00e9vy's zebra. The difference in timing is thought to be responsible for the differences in the striping patterns of the different species. Various abnormalities of the patterns have been documented in plains zebras. In \"melanistic\" zebras, dark stripes are highly concentrated on the torso but the legs are whiter. \"Spotted\" individuals have broken up black stripes around the dorsal area. There have even been morphs with white spots on dark backgrounds.",
+        "They also found that the stripes do not make the zebra less noticeable than solidly coloured herbivores on the open plains. They suggested that stripes may give zebras an advantage in woodlands, as the dark stripes could line up with the outlines of tree branches and other vegetation. The confusion hypothesis states that the stripes confuse predators, be it by: making it harder to distinguish individuals in a group as well as determining the number of zebras in a group; making it difficult to determine an individual's outline when the group runs away; reducing a predator's ability to keep track of a target during a chase; dazzling an assailant so they have difficulty making contact; or making it difficult for a predator to deduce the zebra's size, speed and direction via motion dazzle. This theory has been proposed by several biologists since at least the 1970s. A 2014 computer study of zebra stripes found that they may create a wagon-wheel effect and/or barber pole illusion when in motion.",
+        "A 2014 computer study of zebra stripes found that they may create a wagon-wheel effect and/or barber pole illusion when in motion. The researchers concluded that this could be used against mammalian predators or biting flies. The use of the stripes for confusing mammalian predators has been questioned. Caro suggests that the stripes of zebras could make groups seem smaller, and thus more likely to be attacked. Zebras also tend to scatter when fleeing from attackers and thus the stripes could not break up an individual's Function",
+        "Regarding species and individual identification, Caro notes that zebra species have limited range overlap with each other and horses can recognise each other using visual communication. In addition, no correlation has been found between striping and social behaviour or group numbers among equines, and no link has been found between fitness and striping. The thermoregulatory hypothesis suggests that stripes help to control a zebra's body temperature. In 1971, biologist H. A. Baldwin noted that heat would be absorbed by the black stripes and reflected by the white ones and in 1990, zoologist Desmond Morris suggested that the stripes create cooling convection currents. A 2019 study supported this, finding that where the faster air currents of the warmer black stripes meet those of the white, air swirls form. The researchers also concluded that during the hottest times of the day, zebras erect their black hair to release heat from the skin and flatten it again when it gets cooler."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 0.8,
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.75,
+        "context_precision": 0.75,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": 6,
+      "type": "text",
+      "question": "What are the three living species of zebra?",
+      "expected_answer": "Grevy's zebra, the plains zebra and the mountain zebra.",
+      "path": "text",
+      "answer": "The three living species of zebra are Gr\u00e9vy's zebra (Equus grevyi), the plains zebra (E. quagga), and the mountain zebra (E. zebra). [1]",
+      "cited": [
+        "Zebra.pdf"
+      ],
+      "contexts": [
+        "Zebra Temporal range: A plains zebra (Equus quagga) among a herd in the Ngorongoro Crater in Tanzania Scientific classification Kingdom: Animalia Phylum: Chordata Class: Mammalia Order: Perissodactyla Family: Equidae Genus: Equus Subgenus: Hippotigris C. H. Smith, 1841 Species \u2020E. capensis E. grevyi \u2020E. mauritanicus \u2020E. oldowayensis E. quagga E. zebra Zebra Zebras (US: /\u02c8zi\u02d0br\u0259z/, UK: /\u02c8z\u025bbr\u0259z, \u02c8zi\u02d0-/) (subgenus Hippotigris) are African equines with distinctive black-and-white striped coats. There are three living species: Gr\u00e9vy's zebra (Equus grevyi), the plains zebra (E. quagga), and the mountain zebra (E. zebra). Zebras share the genus Equus with horses and asses, the three groups being the only living members of the family Equidae. Zebra stripes come in different patterns, unique to each individual. Several theories have been proposed for the function of these patterns, with most evidence supporting them as a deterrent for biting flies. Zebras inhabit eastern and southern Africa and can be found in a variety of habitats such as savannahs, grasslands, woodlands, shrublands, and mountainous areas.",
+        "Zebras inhabit eastern and southern Africa and can be found in a variety of habitats such as savannahs, grasslands, woodlands, shrublands, and mountainous areas. Zebras are primarily grazers and can subsist on lower-quality vegetation. They are preyed on mainly by lions, and typically flee when threatened but also bite and kick. Zebra species differ in social behaviour, with plains and mountain zebra living in stable harems consisting of an adult male or stallion, several adult females or mares, and their young or foals; while Gr\u00e9vy's zebra live alone or in loosely associated herds. In harem-holding species, adult females mate only with their harem stallion, while male Gr\u00e9vy's zebras establish territories which attract females and the species is promiscuous. Zebras communicate with various vocalisations, body postures and facial expressions. Social grooming strengthens social bonds in plains and mountain zebras. Zebras' distinctive stripes make them among the most recognisable mammals. They have been featured in art and stories in Africa and beyond."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 0.8,
+      "ragas": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.846,
+        "context_precision": 1.0,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": 7,
+      "type": "text",
+      "question": "About how many teeth does a dog have?",
+      "expected_answer": "Around 42 teeth.",
+      "path": "text",
+      "answer": "Dogs have around 42 teeth [1].",
+      "cited": [
+        "Dog.pdf"
+      ],
+      "contexts": [
+        "Compared to the dog's wolf-like ancestors, selective breeding since domestication has seen the dog's skeleton increase in size for larger types such as mastiffs and miniaturised for smaller types such as terriers; dwarfism has been selectively bred for some types where short legs are preferred, such as dachshunds and corgis. Most dogs naturally have 26 vertebrae in their tails, but some with naturally short tails have as few as three. The dog's skull has identical components regardless of breed type, but there is significant divergence in terms of skull shape between types. The three basic skull shapes are the elongated dolichocephalic type as seen in sighthounds, the intermediate mesocephalic or mesaticephalic type, and the very short and broad brachycephalic type exemplified by mastiff type skulls. The jaw contains around 42 teeth, and it has evolved for the consumption of flesh. Dogs use their carnassial teeth to cut food into bite-sized chunks, more especially meat."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 0.2,
+      "ragas": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.922,
+        "context_precision": 0.0,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": 8,
+      "type": "text",
+      "question": "When were dogs first domesticated?",
+      "expected_answer": "Over 14,000 years ago, before agriculture; genetic studies suggest it may have begun over 25,000 years ago.",
+      "path": "text",
+      "answer": "Genetic studies suggest a domestication process commencing over 25,000 years ago, in one or several wolf populations in either Europe, the high Arctic, or eastern Asia. [5]",
+      "cited": [
+        "Dog.pdf"
+      ],
+      "contexts": [
+        "Dog Temporal range: Late Pleistocene (14,200 years ago) to present Conservation status Domesticated Scientific classification Kingdom: Animalia Phylum: Chordata Class: Mammalia Order: Carnivora Family: Canidae Genus: Canis Species: C. familiaris Binomial name Canis familiaris Linnaeus, 1758 Synonyms List C. aegyptius Linnaeus, 1758 C. alco C. E. H. Smith, 1839, C. americanus Gmelin, 1792 C. anglicus Gmelin, 1792 C. antarcticus Gmelin, 1792 C. aprinus Gmelin, 1792 C. aquaticus Linnaeus, 1758 Dog The dog (Canis familiaris or Canis lupus familiaris) is a domesticated descendant of wolves. Also called the domestic dog, it was selectively bred during the Late Pleistocene by huntergatherers. Dogs and the modern gray wolf share a common ancestor. Dogs were the first species to be domesticated over 14,000 years ago, before the development of agriculture, though genetic studies suggest the domestication process may have begun over 25,000 years ago. Due to their long association with humans, dogs have gained the ability to thrive on a starch-rich diet that would be inadequate for other canids.",
+        "Wolves (left) were domesticated by humans into dogs (right) literature review of the current evidence infers that the dog was domesticated in Siberia 23,000 years ago by ancient North Siberians, then later dispersed eastward into the Americas and westward across Eurasia, with dogs likely accompanying the first humans to inhabit the Americas. Some studies have suggested that the extinct Japanese wolf is closely related to the ancestor of domestic dogs. In 2018, a study identified 429 genes that differed between modern dogs and modern wolves. As the differences in these genes could also be found in ancient dog fossils, these were regarded as being the result of the initial domestication and not from recent breed formation. These genes are linked to neural crest and central nervous system development. These genes affect embryogenesis and can confer tameness, smaller jaws, floppy ears, and diminished craniofacial development, which distinguish domesticated dogs from wolves and are considered to reflect domestication syndrome.",
+        "obesus Gmelin, 1792 C. orientalis Gmelin, 1792 C. pacificus C. E. H. Smith, 1839 C. plancus Gmelin, 1792 considered a subspecies of dog, but historically sometimes as a sibling subspecies of wolf or occasionally as its own species. Genetic studies show that dogs likely diverged from wolves between 27,000 and 40,000 years ago. Dogs were domesticated from wolves at least 14,000 years ago by hunter-gatherers, before the development of agriculture; the remains of the Bonn\u2013 Oberkassel dog, buried alongside humans between 14,000 and 15,000 years ago, are the earliest to be conclusively identified as a domesticated dog. The dingo and the related New Guinea singing dog resulted from the geographic isolation and feralization of dogs in Oceania over 8,000 years ago. Dogs, wolves, and dingoes have sometimes historically been classified as separate species or as a single species. In 1758, the Swedish botanist and zoologist Carl Linnaeus assigned the genus name Canis (the Latin word for \"dog\") to the domestic dog, the wolf, and the golden jackal in his book, Systema Naturae.",
+        "Dogs were introduced to Antarctica as sled dogs. Starting practice in December 1993, dogs were later outlawed by the Protocol on Environmental Protection to the Antarctic Treaty international agreement due to the possible risk of spreading infections. The domesticated dog originated as a predator and scavenger. They inherited complex behaviors, such as bite inhibition, from their wolf ancestors, which would have been pack hunters with complex body language. These sophisticated forms of social cognition and communication may account for dogs' trainability, playfulness, and ability to fit into human households and social situations, and probably also their co-existence with early human hunter-gatherers. Dogs perform many roles for people, such as hunting, herding, pulling loads, protection, assisting police and the military, companionship, and aiding disabled individuals. These roles in human society have earned them the nickname \"man's best friend\" in the Western world. In some cultures, however, dogs are also a source of meat.",
+        "Earlier remains dating back 30,000 years have been described as Paleolithic dogs, but their status as dogs or wolves remains debated because considerable morphological diversity existed among wolves during the Late Pleistocene. DNA sequences show that all ancient and modern dogs share a common ancestry and descended from an ancient, extinct wolf population that was distinct from any modern wolf lineage. Some studies have posited that all living wolves are more closely related to each other than to dogs, while others have suggested that dogs are more closely related to modern Eurasian wolves than to American wolves. The dog is a domestic animal that likely travelled a commensal pathway into domestication (i.e. humans initially neither benefitted nor were harmed by wild dogs eating refuse from their camps). The questions of when and where dogs were first domesticated remains uncertain. Genetic studies suggest a domestication process commencing over 25,000 years ago, in one or several wolf populations in either Europe, the high Arctic, or eastern Asia."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 0.7,
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": 9,
+      "type": "text",
+      "question": "Where and when did the domestication of the cat start?",
+      "expected_answer": "In the Near East, around 7500 BC.",
+      "path": "text",
+      "answer": "The domestication of the cat started in ancient Egypt around 3100 BCE, where cats were venerated, and later in Cyprus around 7500\u20137200 BCE, where African wildcats were attracted to early human settlements by rodents and were tamed by Neolithic farmers. [1]",
+      "cited": [
+        "Cat.pdf"
+      ],
+      "contexts": [
+        "\u2060 \u2060 Chinese mountain cat (F. bieti) \u2060 \u2060 \u2060 European wildcat (F. silvestris) \u2060 \u2060 \u2060African wildcat \u2060 Southern African wildcat (F. l. cafra) \u2060 \u2060 Asiatic wildcat (F. l. ornata) \u2060 \u2060 \u2060 Near Eastern wildcat \u2060 \u2060 Domestic cat \u2060 \u2060 \u2060 \u2060 \u2060 \u2060 A cat eats a fish under a chair, in a mural in an Egyptian tomb dating to the 15th century BCE. It was long thought that the domestication of the cat began in ancient Egypt, where cats were venerated from around 3100 BCE. However, the earliest known indication for the taming of an African wildcat (Felis lybica) was excavated close by a human Neolithic grave in Shillourokambos, southern Cyprus, dating to about 7500\u20137200 BCE. Since there is no evidence of native cat species on Cyprus, the inhabitants most likely brought African wildcats from the West Asian mainland. Scientists therefore assume that African wildcats were attracted to early human settlements in the Fertile Crescent by rodents, in particular the house mouse (Mus musculus), and were tamed by Neolithic farmers.",
+        "Scientists therefore assume that African wildcats were attracted to early human settlements in the Fertile Crescent by rodents, in particular the house mouse (Mus musculus), and were tamed by Neolithic farmers. This mutual relationship between early farmers and tamed cats lasted thousands of years. As agricultural practices spread, so did tame and domesticated cats. Wildcats of Egypt contributed to the maternal gene pool of the domestic cat at a later time. The earliest known evidence for the occurrence of the domestic cat in Greece dates to around 1200 BCE. Greek, Phoenician, Carthaginian and Etruscan traders introduced it to southern Europe. By the 5th century BCE, it was a familiar animal around settlements in Magna Graecia and Etruria. During the Roman Empire, it was introduced to Corsica and Sardinia. By the end of the Western Roman Empire in the 5th century, the Egyptian domestic cat lineage had arrived in a Baltic Sea port in northern Germany.",
+        "Diagram of the general anatomy of a male domestic cat The development of cat breeds started in the mid-19th century. An analysis of the domestic cat genome revealed that the ancestral wildcat genome was significantly altered in the process of domestication, as specific mutations were selected to develop cat breeds. Most breeds are founded on random-bred domestic cats; genetic diversity of these breeds varies between regions, and is lowest in purebred populations, which show more than 20 deleterious genetic disorders. Hybridization between domestic and other Felinae species is also possible, producing hybrids such as the Kellas cat in Scotland. House cats can mate with feral cats. The leopard cat (Prionailurus bengalensis) was tamed independently in China around 5500 BCE. This line of a partially domesticated cat left no trace in the domestic cat populations of today. Captive Leopardus cats also display affectionate behavior toward humans but are not domesticated. The domestic cat has a smaller skull and shorter bones than the European wildcat."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 1.0,
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.998,
+        "context_precision": 1.0,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": 10,
+      "type": "text",
+      "question": "When and where did humans begin domesticating horses?",
+      "expected_answer": "Around 4000 BCE in Central Asia, associated with the Botai culture.",
+      "path": "text",
+      "answer": "Humans began domesticating horses in central Asia prior to 3500 BCE, based on the earliest archaeological evidence from the Western Eurasian Steppes, particularly the lower Volga-Don region, dating to approximately 4000\u20133500 BCE. [1]",
+      "cited": [
+        "Horse.pdf"
+      ],
+      "contexts": [
+        "Bhimbetka rock painting showing a man riding on a horse, India By 3000 BCE, the horse was completely domesticated, and by 2000 BCE, there was a sharp increase in the number of horse bones found in human settlements in northwestern Europe, indicating the spread of domesticated horses throughout the continent. The most recent, but most irrefutable evidence of domestication comes from sites where horse remains were interred with chariots in graves of the Indo-European Sintashta and Petrovka cultures c. 2100 BCE. The genetic makeup of modern domesticated horses all carry the DOM2 gene, which first emerged in West Eurasia towards the end of the 3rd millennium BCE. However, the DOM2 had limited genetic influence of wild type genes during this period. The rapid spread of DOM2 occurred around 2200 BCE, coinciding with the Sintashta culture and development of spoke-wheeled chariots. This demonstrates that certain adaptations were strongly selected due to riding, and the equestrian material culture that spread with the horse itself.",
+        "With rare exceptions, most hybrids are sterile and cannot reproduce. Domestication of the horse most likely took place in central Asia prior to 3500 BCE. Two major sources of information are used to determine where and when the horse was first domesticated and how the domesticated horse spread around the world. The first source is based on palaeological and archaeological discoveries; the second source is a comparison of DNA obtained from modern horses to that from bones and teeth of ancient horse remains. The earliest archaeological evidence for attempted domestication of the horse comes from sites in the Western Eurasian Steppes, particularly the lower Volga-Don region, dating to approximately 4000\u20133500 BCE. However the horses domesticated at the Botai culture in Kazakhstan were Przewalski's horses and not the ancestors of modern horses. Other modern equids Domestication and history"
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 0.9,
+      "ragas": {
+        "faithfulness": 0.667,
+        "answer_relevancy": 0.962,
+        "context_precision": 0.5,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "id": 11,
+      "type": "text",
+      "question": "Who is often credited with creating the modern version of pizza?",
+      "expected_answer": "Raffaele Esposito, in Naples at the end of the 19th century.",
+      "path": "text",
+      "answer": "The modern version of pizza is often credited to Raffaele Esposito, who created a pizza in honor of the visiting Queen Margherita in 1889. [1]",
+      "cited": [
+        "Pizza.pdf"
+      ],
+      "contexts": [
+        "The first mention of the word pizza seemingly comes from a notarial document written in Latin and dating to 997 AD from Gaeta, demanding a payment of \"twelve pizzas, a pork shoulder, and a pork kidney on Christmas Day, and 12 pizzas and a couple of chickens on Easter Day\". Modern pizza evolved from similar flatbread dishes in Naples, Italy, in the 18th or early 19th century. Before that time, flatbread was often topped with ingredients such as garlic, salt, lard, and cheese. It is uncertain when tomatoes were first added and there are many conflicting claims, although it certainly could not have been before the 16th century and the Columbian Exchange. Pizza was sold from open-air stands and out of pizza bakeries until about 1830, when pizzerias in Naples started to have stanze with tables where clients could sit and eat their pizzas on the spot. A popular legend holds that the archetypal pizza, pizza Margherita, was invented in 1889, when the Royal Palace of Capodimonte commissioned the Neapolitan pizzaiolo ('pizza maker') Raffaele Esposito to create a pizza in honor of the visiting Queen Margherita.",
+        "Most pizza menus include standard flavor combinations, including the traditional plain mozzarella, nicknamed \"muza\" or \"musa\"; the napolitana or \"napo\", with \"cheese, sliced tomatoes, garlic, dried oregano and a few green olives\", not to be confused with Neapolitan pizza; calabresa, with slices of longaniza; jamon y morrones, with sliced ham and roasted bell peppers; as well as versions with provolone, with anchovies, with hearts of palm, or with chopped hard boiled egg. A typical custom that is unique to Buenos Aires is to accompany pizza with fain\u00e1, a pancake made from chickpea flour. The terms dessert pizza and sweet pizza are used for a variety of dishes resembling a pizza, including chocolate pizza and fruit pizza. Some are based on a traditional yeast dough pizza base, while others have a cookie-like base and resemble a traditional pizza solely in having a flat round shape with a distinct base and topping."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 0.8,
+      "ragas": {
+        "faithfulness": 0.333,
+        "answer_relevancy": 0.798,
+        "context_precision": 0.0,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": 12,
+      "type": "text",
+      "question": "When was the word pizza first recorded?",
+      "expected_answer": "In AD 997, in a Latin manuscript from the Italian town of Gaeta.",
+      "path": "text",
+      "answer": "The word pizza was first recorded in AD 997, in a Latin manuscript from the southern Italian town of Gaeta, in Lazio, on the border with Campania. [1]",
+      "cited": [
+        "Pizza.pdf"
+      ],
+      "contexts": [
+        "The first mention of the word pizza seemingly comes from a notarial document written in Latin and dating to 997 AD from Gaeta, demanding a payment of \"twelve pizzas, a pork shoulder, and a pork kidney on Christmas Day, and 12 pizzas and a couple of chickens on Easter Day\". Modern pizza evolved from similar flatbread dishes in Naples, Italy, in the 18th or early 19th century. Before that time, flatbread was often topped with ingredients such as garlic, salt, lard, and cheese. It is uncertain when tomatoes were first added and there are many conflicting claims, although it certainly could not have been before the 16th century and the Columbian Exchange. Pizza was sold from open-air stands and out of pizza bakeries until about 1830, when pizzerias in Naples started to have stanze with tables where clients could sit and eat their pizzas on the spot. A popular legend holds that the archetypal pizza, pizza Margherita, was invented in 1889, when the Royal Palace of Capodimonte commissioned the Neapolitan pizzaiolo ('pizza maker') Raffaele Esposito to create a pizza in honor of the visiting Queen Margherita.",
+        "The shift b\u2192p could be explained by the High German consonant shift, and it has been noted in this connection that in German the word Imbiss means 'snack'. A person who makes pizza is known as a pizzaiolo. The word pizza was borrowed from Italian into English in the 1930s; before it became well known, pizza was called \"tomato pie\" by English speakers. Some regional pizza variations still use the name tomato pie. Records of pizza-like foods can be found throughout ancient history from Ancient Rome to the Middle Ages. In the 6th century BC, the Persian soldiers of the Achaemenid Empire during the rule of Darius the Great baked flatbreads with cheese and dates on top of their battle shields and the ancient Greeks supplemented their bread with oils, herbs, and cheese. An early reference to a pizza-like food occurs in the Aeneid, when Celaeno, queen of the Harpies, foretells that the Trojans would not find peace until they are forced by hunger to eat their tables (Book III).",
+        "Pizza A veggie pizza divided into eight slices Type Flatbread Course One course meal Place of origin Italy Region or state Naples, Campania Serving temperature Hot or warm Main ingredients Dough, sauce (usually tomato sauce), cheese (typically mozzarella) Similar dishes Calzone, panzerotti Media: Pizza Pizza Pizza is an Italian dish typically consisting of a flat base of leavened wheat-based dough topped with tomato, cheese, and other ingredients, baked at a high temperature, traditionally in a wood-fired oven. The term pizza was first recorded in AD 997, in a Latin manuscript from the southern Italian town of Gaeta, in Lazio, on the border with Campania. Raffaele Esposito is often credited with creating the modern version of pizza in Naples at the end of the 19th century. In 2009, Neapolitan pizza was registered with the European Union as a traditional speciality guaranteed (TSG) dish. In 2017, the art of making Neapolitan pizza was included on UNESCO's list of intangible cultural heritage."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 0.9,
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.0,
+        "context_precision": 0.833,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": 13,
+      "type": "text",
+      "question": "Who flew the first airplane, and in what year?",
+      "expected_answer": "The Wright brothers, in 1903.",
+      "path": "text",
+      "answer": "The Wright brothers flew the first airplane in 1903, as recognized in [1].",
+      "cited": [
+        "Airplane.pdf"
+      ],
+      "contexts": [
+        "Most airplanes are flown by a pilot on board the aircraft, but some are designed to be remotely or computer-controlled, such as drones. The Wright brothers invented and flew the first airplane in 1903, recognized as \"the first sustained and controlled heavier-than-air powered flight\". They built on the works of George Cayley, dating from 1799, when he set forth the concept of the modern airplane (and later built and flew models and successful passenger-carrying gliders) and the work of German pioneer of human aviation Otto Lilienthal, who, between 1867 and 1896, also studied heavierthan-air flight. Lilienthal's flight attempts in 1891 are seen as the beginning of human flight. Following its limited use in World War I, aircraft technology continued to develop. Airplanes had a presence in all the major battles of World War II. The first jet aircraft was the German Heinkel He 178 in 1939. The first jet airliner, the de Havilland Comet, was introduced in 1952.",
+        "Patent drawings of Clement Ader's \u00c9ole. The Wright Flyer's first flight on 17 December 1903 Santos-Dumont 14-bis, between 1906 and 1907 Between 1867 and 1896, the German pioneer of human aviation Otto Lilienthal developed heavier-thanair flight. He was the first person to make well-documented, repeated, successful gliding flights. Lilienthal's work led to him developing the concept of the modern wing, his flight attempts in 1891 are seen as the beginning of human flight, the \"Lilienthal Normalsegelapparat\" is considered to be the first airplane in series production and his work heavily inspired the Wright brothers. In the 1890s, Lawrence Hargrave conducted research on wing structures and developed a box kite that lifted the weight of a man. His box kite designs were widely adopted. Although he also developed a type of rotary aircraft engine, he did not create and fly a powered fixed-wing aircraft. The Frenchman Clement Ader constructed his first of three flying machines in 1886, the \u00c9ole.",
+        "The first jet airliner, the de Havilland Comet, was introduced in 1952. The Boeing 707, the first widely successful commercial jet, was in commercial service for more than 60 years, from 1958 to 2019. First attested in English in the late 19th century (prior to the first sustained powered flight), the word airplane, like aeroplane, derives from the French a\u00e9roplane, which comes from the Greek \u1f00\u03ae\u03c1 (a\u0113r), \"air\" and either Latin planus, \"level\", or Greek \u03c0\u03bb\u03ac\u03bd\u03bf\u03c2 (planos), \"wandering\". \"A\u00e9roplane\" Etymology and usage"
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 0.4,
+      "ragas": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.877,
+        "context_precision": 1.0,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": 14,
+      "type": "text",
+      "question": "Where and when was the steam locomotive invented?",
+      "expected_answer": "In the United Kingdom, in 1802.",
+      "path": "text",
+      "answer": "The steam locomotive was invented in the United Kingdom in 1802 [1].",
+      "cited": [
+        "Train.pdf"
+      ],
+      "contexts": [
+        "Stockton and Darlington special inaugural train 1825: six wagons of coal, directors coach, then people in wagons. The Union Pacific Big Boy locomotives represented the pinnacle of steam locomotive technology and power. Trains are an evolution of wheeled wagons running on stone wagonways, the earliest of which were built by Babylon circa 2,200 BCE. Starting in the 1500s, wagonways were introduced to haul material from mines; from the 1790s, stronger iron rails were introduced. Following early developments in the second half of the 1700s, in 1804 a steam locomotive built by British inventor Richard Trevithick powered the first ever steam train. Outside of coal mines, where fuel was readily available, steam locomotives remained untried until the opening of the Stockton and Darlington Railway in 1825. British engineer George Stephenson ran a steam locomotive named Locomotion No. 1 on this 40kilometer (25-mile) long line, hauling over 400 passengers at up to 13 kilometers per hour (8 mph).",
+        "1 on this 40kilometer (25-mile) long line, hauling over 400 passengers at up to 13 kilometers per hour (8 mph). The success of this locomotive and Stephenson's Rocket in 1829 convinced many of the value of steam locomotives, and within a decade, the stock market bubble known as \"Railway Mania\" spread across the United Kingdom. News of the success of steam locomotives quickly reached the United States, where the first steam railroad opened in 1829. Railroad pioneers in the United States soon started manufacturing their own locomotives, designed to handle the sharper curves and rougher track typical of the country's railroads. The other nations of Europe also took note of British railroad developments, and most countries on the continent constructed and opened their first railroads in the 1830s and 1840s, following the first run of a steam train in France in late 1829. In the 1850s, trains continued to expand across Europe, with many influenced by or purchases of locomotive designs from the United States.",
+        "Most trains operate on steel tracks with steel wheels, the low friction of which makes them more efficient than other forms of transport. Many countries use rail transport. Trains have their roots in wagonways, which used railway tracks and were powered by horses or pulled by cables. Following the invention of the steam locomotive in the United Kingdom in 1802, trains rapidly spread around the world, allowing freight and passengers to travel over land faster and more cheaply than ever before. Rapid transit and tram systems were first built in the late 1800s to transport large numbers of people in and around cities. Beginning in the 1920s, and accelerating following World War II, diesel and electric locomotives replaced steam as the means of motive power. Following the development of cars, trucks, and extensive networks of highways which offered greater mobility, as well as faster airplanes, trains declined in importance and market share, and many rail lines were abandoned.",
+        "In the 1850s, trains continued to expand across Europe, with many influenced by or purchases of locomotive designs from the United States. Other European countries pursued their own distinct designs. Around the world, steam locomotives grew larger and more powerful throughout the rest of the century as technology advanced. Trains first entered service in South America, Africa, and Asia through construction by imperial powers, which starting in the 1840s built railroads to solidify control of their colonies and transport cargo for export. In Japan, which was never colonized, railroads first arrived in the early 1870s. By 1900, railroads were operating on every continent besides uninhabited Antarctica. History Early history",
+        "Electric train on Djursholmsbanan in Stockholm in the 1890s. The EMD FT set the stage for diesel locomotives to take over from steam. Even as steam locomotive technology continued to improve, inventors in Germany began developing alternative methods for powering trains. Werner von Siemens built the first train powered by electricity in 1879, and went on to pioneer electric trams. Another German inventor, Rudolf Diesel, constructed the first diesel engine in the 1890s, though the potential of his invention to power trains was not realized until decades later. Between 1897 and 1903, tests of experimental electric locomotives on the Royal Prussian Military Railway in Germany demonstrated they were viable, setting speed records in excess of 160 kilometers per hour (100 mph). Early gas powered \"doodlebug\" self-propelled railcars entered service on railroads in the first decade of the 1900s. Experimentation with diesel and gas power continued, culminating in the German \"Flying Hamburger\" in 1933, and the influential American EMD FT in 1939."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 0.4,
+      "ragas": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.999,
+        "context_precision": 0.833,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": 15,
+      "type": "text",
+      "question": "What is the most popular bicycle model in the world?",
+      "expected_answer": "The Chinese Flying Pigeon, with about 500 million produced.",
+      "path": "text",
+      "answer": "The most popular bicycle model\u2014and most popular vehicle of any kind in the world\u2014is the Chinese Flying Pigeon, [1] with about 500 million produced.",
+      "cited": [
+        "Bicycle.pdf"
+      ],
+      "contexts": [
+        "Bicycle The most popular bicycle model\u2014and most popular vehicle of any kind in the world\u2014is the Chinese Flying Pigeon, with about 500 million produced. Classification Vehicle Application Transportation, recreation Fuel source Human or motor-power Wheels 2 Components Frame, wheels, tires, saddle, handlebar, pedals, drivetrain Inventor Karl von Drais, Kirkpatrick MacMillan Invented 19th century Types Utility bicycle, mountain bicycle, racing bicycle, touring bicycle, hybrid bicycle, cruiser bicycle, BMX bike, tandem, low rider, tall bike, fixed gear, folding bicycle, amphibious cycle, cargo bike, recumbent, electric bicycle Classic bell of a bicycle Bicycle A bicycle, also called a pedal cycle, bike, push-bike or cycle, is a human-powered or motor-assisted, pedaldriven, single-track vehicle, with two wheels attached to a frame, one behind the other. A bicycle rider is called a cyclist or bicyclist. The bicycle was invented in Europe in the 19th century. By the early 21st century, there were more than 1 billion bicycles."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 0.6,
+      "ragas": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.957,
+        "context_precision": 1.0,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": 16,
+      "type": "image",
+      "question": "Is there a photo of a giraffe drinking water? Describe it.",
+      "expected_answer": "Yes. A giraffe stretches out its tongue to drink water.",
+      "path": "image",
+      "answer": "This photo shows a giraffe extending its long neck to drink from a pond, with clear water contrasting against its brown and white spotted pattern, and the object detector is highly confident it is indeed a giraffe [1].",
+      "cited": [
+        "000000235057.jpg"
+      ],
+      "contexts": [
+        "A giraffe extends its long neck to drink from a pond, with its brown and white spots contrasting against the clear water. Objects detected: giraffe (0.94)."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 4.6,
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.612,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "id": 17,
+      "type": "image",
+      "question": "Find a photo of a zebra standing next to its reflection in water.",
+      "expected_answer": "A zebra stands beside its reflection in a body of water.",
+      "path": "image",
+      "answer": "This photo shows a zebra standing on a dirt path, with its reflection visible in a nearby body of water, matching the description of a zebra standing next to its reflection in water. [1]",
+      "cited": [
+        "000000491613.jpg"
+      ],
+      "contexts": [
+        "A zebra stands on a dirt path, facing right, with its reflection visible in a nearby body of water. Objects detected: zebra (0.96)."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 2.0,
+      "ragas": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.678,
+        "context_precision": 1.0,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": 18,
+      "type": "image",
+      "question": "Which photo shows a baby elephant being fed?",
+      "expected_answer": "A baby elephant is being fed from a bottle of milk.",
+      "path": "image",
+      "answer": "This photo shows a baby elephant being protected and comforted by its mother, not fed, as the mother elephant is curled around her calf with her trunk, not feeding the calf. [1]",
+      "cited": [
+        "Elephant.pdf#page14-2"
+      ],
+      "contexts": [
+        "A mother elephant and her calf share a tender moment, with the calf nestled under the mother's trunk. The mother's trunk is curled upwards, and the calf's trunk is curled downwards, creating a sense of protection and comfort. The mother's trunk is a rich brown, while the calf's trunk is a lighter shade of brown. Objects detected: elephant (0.48)."
+      ],
+      "right_path": true,
+      "right_outcome": false,
+      "seconds": 3.0,
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": null,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "id": 19,
+      "type": "image",
+      "question": "Is there a photo of people riding elephants?",
+      "expected_answer": "Yes. Two people ride elephants beside some trees.",
+      "path": "image",
+      "answer": "There is a photo of people riding elephants as an elephant, a motorcycle, and a person are shown on a gray road. [1]",
+      "cited": [
+        "Elephant.pdf#page18-1"
+      ],
+      "contexts": [
+        "A man in a yellow turban rides an elephant carrying a large bundle of green leaves, while a motorcyclist and a scooter rider follow behind on a gray road. Objects detected: elephant (0.89), motorcycle (0.83), person (0.74)."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 2.1,
+      "ragas": {
+        "faithfulness": 0.2,
+        "answer_relevancy": 0.589,
+        "context_precision": 1.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "id": 20,
+      "type": "image",
+      "question": "Which photo shows a dog holding a frisbee, and what colour is the frisbee?",
+      "expected_answer": "A large brown dog holds a neon (bright yellow-green) frisbee in its mouth.",
+      "path": "image",
+      "answer": "The photo shows a dog with a red collar holding a green frisbee. [1]",
+      "cited": [
+        "000000206831.jpg"
+      ],
+      "contexts": [
+        "A brown dog with a red collar is lying on a green lawn, holding a green toy in its mouth. Objects detected: dog (0.96), frisbee (0.52), sports ball (0.49)."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 1.7,
+      "ragas": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.656,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "id": 21,
+      "type": "image",
+      "question": "Find the photo of a dog wearing a hat.",
+      "expected_answer": "A dog wearing a hat sits in a car.",
+      "path": "image",
+      "answer": "This photo shows a dog wearing a brown cowboy hat, which is why it matches the description of a dog wearing a hat. [1]",
+      "cited": [
+        "000000311190.jpg"
+      ],
+      "contexts": [
+        "A brown dog with a black nose and eyes is wearing a brown cowboy hat with a black band, sitting in the back seat of a car. Objects detected: dog (0.93), person (0.42)."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 1.9,
+      "ragas": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.0,
+        "context_precision": 1.0,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": 22,
+      "type": "image",
+      "question": "Is there a photo of a cat sitting in a sink?",
+      "expected_answer": "Yes. A cat sits in a bathroom sink under the faucet.",
+      "path": "image",
+      "answer": "Yes, the photo shows a cat standing on a sink, as the objects detected include a cat with a sink, which is consistent with the question. [1]",
+      "cited": [
+        "000000227044.jpg"
+      ],
+      "contexts": [
+        "A white and black cat stands on a white sink in a bathroom, with a blue soap dispenser and a glass shelf above it. Objects detected: cat (0.91), bottle (0.64), cup (0.62), sink (0.62)."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 2.0,
+      "ragas": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.872,
+        "context_precision": 1.0,
+        "context_recall": 1.0
+      }
+    },
+    {
+      "id": 23,
+      "type": "image",
+      "question": "Which photo shows a cat wearing a hat, and what colour is the hat?",
+      "expected_answer": "A black and white cat wears a small purple hat.",
+      "path": "image",
+      "answer": "The photo shows a cat wearing a pink hat with a fluffy pom pom, as the objects detected list confirms a pink knit hat. [1]",
+      "cited": [
+        "000000286708.jpg"
+      ],
+      "contexts": [
+        "A black and white cat with yellow eyes is wearing a pink knit hat with a fluffy pom pom on top. Objects detected: cat (0.88)."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 1.9,
+      "ragas": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.634,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "id": 24,
+      "type": "image",
+      "question": "Find a photo of a horse jumping over a bar.",
+      "expected_answer": "A horse and rider jump over a bar on a track.",
+      "path": "image",
+      "answer": "This photo shows a black horse jumping over a yellow and red obstacle in a horse show, which matches the description of a horse jumping over a bar. [1]",
+      "cited": [
+        "000000242678.jpg"
+      ],
+      "contexts": [
+        "A black horse jumps over a yellow and red obstacle in a horse show, with a scoreboard displaying the time and score of the event. Objects detected: horse (0.9), person (0.79)."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 1.9,
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.767,
+        "context_precision": 1.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "id": 25,
+      "type": "image",
+      "question": "Which photo shows a small pepperoni pizza next to a fork?",
+      "expected_answer": "A small pepperoni pizza sits next to a fork.",
+      "path": "image",
+      "answer": "This photo shows a small pepperoni pizza next to a fork, as detected by the object detector with high confidence [1].",
+      "cited": [
+        "000000351331.jpg"
+      ],
+      "contexts": [
+        "A pepperoni pizza with melted cheese and sauce is served on a white plate, accompanied by a silver fork. Objects detected: fork (0.95), pizza (0.91), dining table (0.64)."
+      ],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 1.8,
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.648,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "id": 26,
+      "type": "image",
+      "question": "Find a photo of a green and yellow train.",
+      "expected_answer": "A green and yellow train travels past a platform.",
+      "path": "image",
+      "answer": "This photo depicts two trains, one green and one purple, parked on a track with a person and a handbag in the foreground, not a green and yellow train as the question asked. [1]",
+      "cited": [
+        "000000482585.jpg"
+      ],
+      "contexts": [
+        "Two trains, one green and one purple, are parked on a track with a platform in the foreground. Objects detected: train (0.94), person (0.82), handbag (0.46)."
+      ],
+      "right_path": true,
+      "right_outcome": false,
+      "seconds": 2.0,
+      "ragas": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.0,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "id": 27,
+      "type": "image",
+      "question": "Is there a photo of a small red propeller airplane? Where is it?",
+      "expected_answer": "Yes. A small red propeller airplane sits on an airport runway.",
+      "path": "image",
+      "answer": "This photo shows a small red propeller airplane flying through the sky from left to right with its wings spread wide, as indicated by the object detector which is very confident (0.91) that the main object in the image is an airplane. [1]",
+      "cited": [
+        "Airplane.pdf#page4-1"
+      ],
+      "contexts": [
+        "A red and yellow propeller plane soars through the sky, moving from left to right with its wings spread wide. Objects detected: airplane (0.91)."
+      ],
+      "right_path": true,
+      "right_outcome": false,
+      "seconds": 2.2,
+      "ragas": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.634,
+        "context_precision": 0.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "id": 28,
+      "type": "image",
+      "question": "Find a photo where a moped is parked next to bicycles.",
+      "expected_answer": "A moped is parked next to bicycles on a sidewalk.",
+      "path": "image",
+      "answer": "This photo shows a yellow Suzuki motorcycle parked next to bicycles on a brick sidewalk, which matches the description of a moped parked next to bicycles. [1]",
+      "cited": [
+        "000000266400.jpg"
+      ],
+      "contexts": [
+        "A yellow Suzuki motorcycle is parked on a brick sidewalk, facing the camera. Objects detected: motorcycle (0.93), person (0.77), bicycle (0.4)."
+      ],
+      "right_path": true,
+      "right_outcome": false,
+      "seconds": 1.8,
+      "ragas": {
+        "faithfulness": 0.25,
+        "answer_relevancy": 0.888,
+        "context_precision": 1.0,
+        "context_recall": 0.0
+      }
+    },
+    {
+      "id": 29,
+      "type": "none",
+      "question": "What is the capital of Australia?",
+      "expected_answer": "The sources don't contain this information.",
+      "path": "text",
+      "answer": "I couldn't find this in the documents.",
+      "cited": [],
+      "contexts": [],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 0.1
+    },
+    {
+      "id": 30,
+      "type": "none",
+      "question": "Who won the 2018 FIFA World Cup?",
+      "expected_answer": "The sources don't contain this information.",
+      "path": "text",
+      "answer": "I couldn't find this in the documents.",
+      "cited": [],
+      "contexts": [],
+      "right_path": true,
+      "right_outcome": true,
+      "seconds": 0.1
+    }
+  ]
+}

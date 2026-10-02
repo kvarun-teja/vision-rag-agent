@@ -1,0 +1,37 @@
+# The whole system with one command:  docker compose up
+#   db  - Postgres + pgvector, with its own copy of the data (port 5433, so it doesn't clash with a dev database on 5432)
+#   api - our FastAPI app (port 8000)
+# Ollama is not in here: it runs on the host, where it can use the GPU.
+#
+# First time only, fill the database:  docker compose run --rm api python -m ingestion.run
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_PASSWORD: localdev
+    ports:
+      - "127.0.0.1:5433:5432"  # reachable only from this computer
+    volumes:
+      - db-data:/var/lib/postgresql/data  # keeps the data when the container is removed
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      retries: 10
+
+  api:
+    build: .
+    network_mode: host  # share the host's network, so "localhost" reaches Ollama and the db's port
+    environment:
+      DATABASE_URL: postgresql://postgres:localdev@localhost:5433/postgres
+      OLLAMA_URL: http://localhost:11434
+    volumes:
+      - ./data:/app/data      # the raw files and extracted pictures
+      - ./models:/app/models  # YOLO weights
+      - ./logs:/app/logs      # the request log, visible on the host
+      - ${HOME}/.cache/huggingface:/root/.cache/huggingface  # reuse downloaded embedding models
+    depends_on:
+      db:
+        condition: service_healthy  # wait until Postgres accepts connections
+
+volumes:
+  db-data:

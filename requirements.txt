@@ -1,2 +1,37 @@
 # Python libraries for this project.
 # PyTorch is not listed here: it's installed separately because it needs a special GPU download link.
+
+# Embedding models (turn text and images into vectors)
+sentence-transformers
+transformers
+pillow
+
+# Talking to Postgres + pgvector
+psycopg[binary]
+pgvector
+
+# Reading PDFs and text inside images
+pymupdf
+pytesseract
+
+# The agent
+langgraph
+langchain
+
+# The vision tool (YOLO object detector)
+ultralytics
+
+# The API
+fastapi
+uvicorn
+
+# Evaluation
+ragas
+# ragas needs a piece of langchain-community that was removed in version 0.4.2
+langchain-community<0.4.2
+
+# Loads settings from the .env file
+python-dotenv
+
+# Testing
+pytest
