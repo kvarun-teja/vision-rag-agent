@@ -16,7 +16,7 @@ Everything runs **locally on a 4 GB laptop GPU**: no API keys, no data leaves th
 $ curl -s -X POST localhost:8000/query -H "Content-Type: application/json" \
        -d '{"question": "Where and when was the steam locomotive invented?"}'
 {"answer": "The steam locomotive was invented in the United Kingdom in 1802 [1].",
- "citations": [{"n": 1, "source": "data/raw/Train.pdf", "page": 3}],
+ "citations": [{"n": 1, "source": "Train.pdf", "page": 3}],
  "path": "text", "tokens": 1404, "latency_ms": 1589, ...}
 
 $ curl -s -X POST localhost:8000/query -H "Content-Type: application/json" \
@@ -30,26 +30,32 @@ $ curl -s -X POST localhost:8000/query -H "Content-Type: application/json" \
 
 ```
 INGESTION (offline, once)
-  data/raw/ ──► router ──┬── PDF   ──► PyMuPDF: page text + embedded pictures ─┐
-                         ├── photo ──► loaded directly (skips the PDF reader) ──┼─► OCR (only images that contain text)
-                         └── other ──► skipped and logged                       ┘
-            ──► chunk (≈150 words, sentence boundaries, 1-sentence overlap)
-            ──► fingerprint (SHA-256) and skip anything already stored
-            ──► embed: text with BGE-small (384 numbers), images with CLIP (512 numbers)
-            ──► store in Postgres + pgvector (two tables: text_chunks, images)
+  data/raw/ ──► router ──┬── PDF   ──► PyMuPDF: page text ───────────────────────────────────────────┐
+                         │             + embedded pictures ──┐                                         │
+                         ├── photo ──► loaded directly ──────┴─► all images ──► OCR (only if text) ───┤
+                         │             (skips the PDF reader)       │                                  │
+                         │                                          └─► moondream captions every image ┤
+                         ├── text  ──► read directly ──────────────────────────────────────────────────┤
+                         └── other ──► skipped and logged                                              ▼
+       text embeddings (BGE-small): document chunks + captions + OCR text, each linked to its source and page
+       image embeddings (CLIP): every image
+       ──► data plane: pgvector vectors · blob store (data/blobs/, one copy per file) · sources metadata table
 
 SERVING (per question)
   POST /query ──► guardrail (empty / >500 characters → HTTP 400)
               ──► LangGraph agent:
-                    decide ──"text"──► search chunks ──► keep strong matches ──────────────────────────┐
-                           ──"image"─► search photos (CLIP) ──► YOLO tool keeps photos with the right   │
-                                       objects ──► moondream describes the best one ────────────────────┤
+                    decide ──"text"──► search document chunks ──► keep strong matches ──────────────────┐
+                           ──"image"─► search images: CLIP + captions/OCR text, merged by rank ──►      │
+                                       YOLO tool keeps photos with the right objects ──►                │
+                                       the best photo's stored caption ─────────────────────────────────┤
                                                                                                          ▼
                                                                      qwen2.5:3b answers from the sources, with [n] citations
               ──► log one JSON line: request id, path, tokens, latency, cost
 
-DATA
-  pgvector (vectors + labels) · data/ (raw files, extracted pictures) · logs/requests.jsonl
+DATA PLANE
+  pgvector: text_chunks (kind = text / caption / ocr) and images (with caption, OCR text, blob path)
+  sources:  one row per input file (type, blob path, fingerprint, pages); every vector links back to it
+  blob store: data/blobs/<sha256>.<ext>   ·   request log: logs/requests.jsonl
 ```
 
 **Models** (all through [Ollama](https://ollama.com) or sentence-transformers, all local):
@@ -72,23 +78,26 @@ Measured on [eval/eval_set.json](eval/eval_set.json): 30 hand-checked questions 
 |---|---|---|---|
 | Agent picked the right path | 15/15 | 13/13 | 2/2 |
 | Cited a correct source / declined | **15/15** | **9/13** | **2/2** |
-| Average time per question | 0.7 s | 2.2 s | 0.1 s |
+| Average time per question | 1.1 s | 1.3 s | 0.1 s |
 
 **RAGAS** (graded locally by `qwen2.5:3b`):
 
 | | Text | Image |
 |---|---|---|
-| Faithfulness (claims backed by the context) | 0.60 | 0.38 |
-| Answer relevancy (answers the question asked) | 0.78 | 0.58 |
-| Context precision (retrieved context is useful) | 0.76 | 0.46 |
-| Context recall (context holds the needed facts) | 0.93 | 0.23 |
+| Faithfulness (claims backed by the context) | 0.72 | 0.43 |
+| Answer relevancy (answers the question asked) | 0.94 | 0.54 |
+| Context precision (retrieved context is useful) | 0.75 | 0.46 |
+| Context recall (context holds the needed facts) | 0.93 | 0.31 |
 
-**Before vs. after the last round of fixes** (image-answer prompt, a relative score margin for text chunks, cleaning tool inputs in code): text went from 14/15 to 15/15, image stayed at 9/13 (one question fixed, another lost), and average time per image question dropped from 5.0 s to 2.2 s. Image RAGAS scores rose (faithfulness 0.21 → 0.38, relevancy 0.42 → 0.58).
+**History.** The first full evaluation scored 14/15 text and 9/13 image, at 5.0 s per image question. Fixing the image-answer prompt, adding a relative score margin for text chunks and cleaning tool inputs in code took text to 15/15 and image questions to 2.2 s. Captioning every image at ingestion then cut image questions to 1.3 s, because answers reuse the stored caption instead of calling the vision-language model per question; accuracy stayed at 9/13.
 
-**How much to trust RAGAS here:** re-grading the *same unchanged* text answers moved the scores by up to ±0.06, so differences smaller than that are grader noise. Image context recall is low partly because the "context" is moondream's description, while the reference answer is a COCO caption written in different words. Three of the four image misses are retrieval misses: the right photo never reached the top 10.
+**How much to trust RAGAS here:** re-grading the *same unchanged* text answers moved the scores by up to ±0.06, and a small change to the source labels in the prompt moved text relevancy from 0.78 to 0.94 with the same facts, so treat RAGAS differences as rough. Image context recall is low partly because the "context" is moondream's description, while the reference answer is a COCO caption written in different words. Three of the four image misses are retrieval misses: the right photo never reached the top 10.
 
 ## Design choices
 
+- **Every image is captioned once, at ingestion.** moondream describes all 501 images (≈5 minutes on the GPU). Captions and OCR text are stored as text chunks of their own (`kind` = caption / ocr) that link back to their image, so they are searchable, and the agent reuses the stored caption instead of calling the model per question.
+- **Image search: CLIP first, captions second.** The first 70% of image results are CLIP's best; the rest are caption/OCR matches CLIP missed. Merging the two rankings equally was measured and did worse (8/13 vs 11/13 in the top 3), because CLIP ranked the right photo first or second for 11 of 13 questions while moondream's captions often mislabel details.
+- **Blob store and metadata table.** Each raw file is kept once in `data/blobs/`, named by its SHA-256 fingerprint; the `sources` table has one row per input file (type, blob path, fingerprint, pages), and every vector row links back to its source, page and (for images) caption.
 - **pgvector behind a retriever interface.** [retrieval/retriever.py](retrieval/retriever.py) defines `search_text()` / `search_images()`; the agent and API only call those. Postgres keeps vectors and their labels (file, page, OCR text) in one place; switching to Qdrant or OpenSearch means writing one new class.
 - **YOLO before the vision-language model.** Image search (CLIP) is fuzzy; YOLO is precise and cheap. Screening 10 candidates with YOLO costs ~0.25 s, while describing one photo with moondream costs ~0.5–1 s and ~740 of its 2,048 tokens. Describing only the top YOLO-confirmed photo was both cheaper and more accurate on the eval set than describing the top search result or letting the language model pick between three.
 - **The agent calls the tool through real tool calling.** qwen is shown a tool description and replies with `find_objects(objects=["dog", "frisbee"])`; our code validates those inputs against YOLO's labels and runs the detector.
@@ -122,7 +131,8 @@ docker run -d --name rag-postgres -e POSTGRES_PASSWORD=localdev -p 127.0.0.1:543
 # 4. Settings, data, ingestion
 cp .env.example .env
 python scripts/download_data.py      # 10 Wikipedia PDFs + 200 COCO photos (~300 MB)
-python -m ingestion.run              # ~45 s on a GPU
+python -m ingestion.run              # ~6 min on a GPU (mostly captioning 501 images); re-runs take ~1 s
+# add --fresh to drop the tables and rebuild everything from data/raw
 
 # 5. Serve
 uvicorn api.main:app --port 8000     # then open http://localhost:8000/docs
@@ -147,13 +157,13 @@ python -m eval.run_eval              # agent + RAGAS on the 30 eval questions (~
 ## Project layout
 
 ```
-ingestion/   router, PDF parsing, images, OCR, chunking, embedding, storing, run.py (the pipeline)
+ingestion/   router, PDF parsing, images, OCR, captions (caption.py), chunking, embedding, blob store, storing, run.py
 retrieval/   the retriever interface + pgvector implementation, top-k tuning
 agent/       llm.py (Ollama calls), generate.py (grounded answers), vision_tool.py (YOLO), graph.py (LangGraph agent)
 api/         FastAPI app: /query, /health, guardrail, request log
 eval/        eval_set.json, run_eval.py, results.json
 scripts/     dataset download and three small concept demos (calling a model, text and image embeddings)
-tests/       pytest checks for ingestion
+tests/       pytest checks for ingestion, the blob store and caption/OCR chunks
 config.py    all settings, read from .env
 ```
 

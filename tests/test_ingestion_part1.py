@@ -24,7 +24,7 @@ def test_pdf_text_and_both_kinds_of_images(tmp_path):
     shutil.copy(PDF, tmp_path)
     shutil.copy(PHOTO, tmp_path)
 
-    pages, images, skipped = load_folder(tmp_path, extracted_dir=tmp_path / "extracted")
+    sources, pages, images, skipped = load_folder(tmp_path, extracted_dir=tmp_path / "extracted")
 
     assert len(pages) > 0 and "giraffe" in pages[0]["text"].lower()  # text came out of the PDF
     origins = {img["origin"] for img in images}
@@ -51,7 +51,7 @@ def test_broken_files_are_skipped_not_fatal(tmp_path):
     (tmp_path / "broken.jpg").write_bytes(b"this is not really a photo")
     (tmp_path / "slides.pptx").write_bytes(b"unsupported")
 
-    pages, images, skipped = load_folder(tmp_path, extracted_dir=tmp_path / "extracted")
+    sources, pages, images, skipped = load_folder(tmp_path, extracted_dir=tmp_path / "extracted")
 
     assert [img["image_id"] for img in images] == [PHOTO.name]  # the good file still made it
     assert sorted(skipped) == ["broken.jpg", "broken.pdf", "slides.pptx"]

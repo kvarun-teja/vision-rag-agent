@@ -36,12 +36,13 @@ def read_text_file(path):
 def load_folder(folder, extracted_dir="data/extracted"):
     """Read every file in a folder.
 
-    Returns three lists:
+    Returns four lists:
+      sources - one entry per file we could read (for the sources table)
       pages   - text pages from PDFs and text files
       images  - every image: standalone photos plus pictures found inside PDFs
       skipped - names of files we couldn't use (unsupported or broken)
     """
-    pages, standalone_images, pdf_images, skipped = [], [], [], []
+    sources, pages, standalone_images, pdf_images, skipped = [], [], [], [], []
 
     for path in sorted(Path(folder).iterdir()):
         if not path.is_file() or path.name.startswith("."):
@@ -55,17 +56,22 @@ def load_folder(folder, extracted_dir="data/extracted"):
 
         try:
             if kind == "pdf":
-                doc_pages, doc_images = parse_pdf(path, extracted_dir)
+                doc_pages, doc_images, page_count = parse_pdf(path, extracted_dir)
                 pages += doc_pages
                 pdf_images += doc_images
             elif kind == "image":
                 standalone_images.append(load_image(path))
+                page_count = None  # a photo has no pages
             else:
                 pages += read_text_file(path)
+                page_count = 1
         except Exception as error:
             # One broken file shouldn't stop the whole run: note it and keep going
             log.warning("Skipping %s: could not read it (%s)", path.name, error)
             skipped.append(path.name)
+            continue
+
+        sources.append({"source_id": path.name, "file_type": kind, "path": str(path), "pages": page_count})
 
     images = merge_images(standalone_images, pdf_images)
-    return pages, images, skipped
+    return sources, pages, images, skipped

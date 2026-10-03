@@ -18,6 +18,7 @@ import config
 from agent.generate import NO_USAGE, answer_about_photo, answer_from_sources, keep_good_chunks, text_sources
 from agent.llm import ask_for_tool_call, ask_model
 from agent.vision_tool import find_objects, object_labels, tool_description
+from ingestion.caption import DESCRIBE_PROMPT
 from retrieval.retriever import PgVectorRetriever
 
 log = logging.getLogger("agent")
@@ -31,8 +32,6 @@ Reply "text" if it can be answered from written documents: facts, history, numbe
 Reply with exactly one word: image or text.
 
 Question: {question}"""
-
-DESCRIBE_PROMPT = "Describe this image in two sentences. Mention the main objects, what they are doing, and their colours."
 
 TOOL_PROMPT = """Question: {question}
 
@@ -131,12 +130,14 @@ def inspect_images(state):
 
 
 def describe_images(state):
-    # The vision-language model looks at each shortlisted image; its description becomes a numbered source
+    # Each shortlisted image's description becomes a numbered source. The vision-language model
+    # already captioned every image during ingestion, so normally no model call is needed here.
     sources, usage = [], state.get("usage")
     for image in state["shortlist"]:
-        # max_tokens stops moondream from rambling (one description once ran past 1,000 tokens)
-        description, used = ask_model(config.VLM_MODEL, DESCRIBE_PROMPT, image_paths=[image["path"]], max_tokens=80)
-        usage = add_usage(usage, used)
+        description = image.get("caption")
+        if not description:  # fallback: describe it now (same prompt and limit as at ingestion)
+            description, used = ask_model(config.VLM_MODEL, DESCRIBE_PROMPT, image_paths=[image["path"]], max_tokens=80)
+            usage = add_usage(usage, used)
         if image.get("objects"):  # what YOLO found: facts from the detector, not the VLM's wording
             found = ", ".join(f"{label} ({confidence})" for label, confidence in image["objects"].items())
             description += f" Objects detected: {found}."

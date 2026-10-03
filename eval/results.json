@@ -3,21 +3,21 @@
     "routing": "30/30",
     "text": {
       "right_outcome": "15/15",
-      "avg_seconds": 0.747,
+      "avg_seconds": 1.127,
       "ragas_graded": 15,
-      "faithfulness": 0.595,
-      "answer_relevancy": 0.78,
-      "context_precision": 0.763,
+      "faithfulness": 0.718,
+      "answer_relevancy": 0.944,
+      "context_precision": 0.752,
       "context_recall": 0.933
     },
     "image": {
       "right_outcome": "9/13",
-      "avg_seconds": 2.223,
+      "avg_seconds": 1.338,
       "ragas_graded": 13,
-      "faithfulness": 0.381,
-      "answer_relevancy": 0.582,
+      "faithfulness": 0.428,
+      "answer_relevancy": 0.537,
       "context_precision": 0.462,
-      "context_recall": 0.231
+      "context_recall": 0.308
     },
     "none": {
       "right_outcome": "2/2",
@@ -31,7 +31,7 @@
       "question": "What do giraffes mainly eat?",
       "expected_answer": "Leaves, fruits and flowers of woody plants, mainly acacia species.",
       "path": "text",
-      "answer": "Giraffes mainly eat the twigs of trees, preferring those of the subfamily Acacieae and the genera Commiphora and Terminalia, which are important sources of calcium and protein to sustain their growth rate. [1]",
+      "answer": "Giraffes mainly eat leaves, fruits, and flowers of woody plants, primarily acacia species, which they browse at heights most other ground-based herbivores cannot reach. [4]",
       "cited": [
         "Giraffe.pdf"
       ],
@@ -43,10 +43,10 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 2.3,
+      "seconds": 4.9,
       "ragas": {
-        "faithfulness": 0.429,
-        "answer_relevancy": 0.841,
+        "faithfulness": 0.667,
+        "answer_relevancy": 0.984,
         "context_precision": 1.0,
         "context_recall": 1.0
       }
@@ -57,7 +57,7 @@
       "question": "How many living giraffe species did researchers recently propose?",
       "expected_answer": "Four living species, with seven subspecies.",
       "path": "text",
-      "answer": "Researchers recently proposed the existence of four species of giraffe [1].",
+      "answer": "Researchers recently proposed the existence of four species of giraffe [2].",
       "cited": [
         "Giraffe.pdf"
       ],
@@ -70,7 +70,7 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 0.3,
+      "seconds": 0.8,
       "ragas": {
         "faithfulness": 1.0,
         "answer_relevancy": 0.952,
@@ -84,7 +84,7 @@
       "question": "How many living elephant species are recognised, and which are they?",
       "expected_answer": "Three: the African bush elephant, the African forest elephant and the Asian elephant.",
       "path": "text",
-      "answer": "Three species of living elephants are recognised; the African bush elephant (Loxodonta africana), forest elephant (Loxodonta cyclotis), and Asian elephant (Elephas maximus). [1]",
+      "answer": "Three species of living elephants are recognised; the African bush elephant (Loxodonta africana), forest elephant (Loxodonta cyclotis), and Asian elephant (Elephas maximus). [2]",
       "cited": [
         "Elephant.pdf"
       ],
@@ -95,10 +95,10 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 0.7,
+      "seconds": 1.0,
       "ragas": {
         "faithfulness": 1.0,
-        "answer_relevancy": 0.929,
+        "answer_relevancy": 0.97,
         "context_precision": 1.0,
         "context_recall": 1.0
       }
@@ -120,10 +120,10 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 0.4,
+      "seconds": 0.6,
       "ragas": {
         "faithfulness": 1.0,
-        "answer_relevancy": 0.872,
+        "answer_relevancy": 1.0,
         "context_precision": 1.0,
         "context_recall": 1.0
       }
@@ -134,7 +134,7 @@
       "question": "What is the best-supported explanation for zebra stripes?",
       "expected_answer": "Most evidence supports the stripes being a deterrent for biting flies.",
       "path": "text",
-      "answer": "The thermoregulatory hypothesis is best-supported, as a 2019 study found that where the faster air currents of the warmer black stripes meet those of the white, air swirls form, helping to cool zebras. [5]",
+      "answer": "The thermoregulatory hypothesis is best-supported, as a 2019 study found that the stripes create cooling convection currents and that during hot times, zebras erect their black hair to release heat from the skin. [5]",
       "cited": [
         "Zebra.pdf"
       ],
@@ -147,11 +147,11 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 0.8,
+      "seconds": 1.1,
       "ragas": {
-        "faithfulness": 0.0,
-        "answer_relevancy": 0.75,
-        "context_precision": 0.75,
+        "faithfulness": 0.667,
+        "answer_relevancy": 0.845,
+        "context_precision": 0.25,
         "context_recall": 1.0
       }
     },
@@ -171,10 +171,10 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 0.8,
+      "seconds": 0.9,
       "ragas": {
         "faithfulness": 1.0,
-        "answer_relevancy": 0.846,
+        "answer_relevancy": 1.0,
         "context_precision": 1.0,
         "context_recall": 1.0
       }
@@ -185,7 +185,7 @@
       "question": "About how many teeth does a dog have?",
       "expected_answer": "Around 42 teeth.",
       "path": "text",
-      "answer": "Dogs have around 42 teeth [1].",
+      "answer": "Dogs have evolved to have around 42 teeth [1].",
       "cited": [
         "Dog.pdf"
       ],
@@ -194,11 +194,11 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 0.2,
+      "seconds": 0.4,
       "ragas": {
         "faithfulness": 1.0,
-        "answer_relevancy": 0.922,
-        "context_precision": 0.0,
+        "answer_relevancy": 0.986,
+        "context_precision": 1.0,
         "context_recall": 1.0
       }
     },
@@ -221,11 +221,11 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 0.7,
+      "seconds": 1.1,
       "ragas": {
         "faithfulness": 0.0,
-        "answer_relevancy": 0.0,
-        "context_precision": 1.0,
+        "answer_relevancy": 0.827,
+        "context_precision": 0.833,
         "context_recall": 1.0
       }
     },
@@ -235,8 +235,9 @@
       "question": "Where and when did the domestication of the cat start?",
       "expected_answer": "In the Near East, around 7500 BC.",
       "path": "text",
-      "answer": "The domestication of the cat started in ancient Egypt around 3100 BCE, where cats were venerated, and later in Cyprus around 7500\u20137200 BCE, where African wildcats were attracted to early human settlements by rodents and were tamed by Neolithic farmers. [1]",
+      "answer": "The domestication of the cat started in ancient Egypt around 3100 BCE, where cats were venerated. However, African wildcats were tamed by Neolithic farmers in Cyprus around 7500\u20137200 BCE, attracted by rodents, including the house mouse. [1] [2]",
       "cited": [
+        "Cat.pdf",
         "Cat.pdf"
       ],
       "contexts": [
@@ -246,10 +247,10 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 1.0,
+      "seconds": 1.3,
       "ragas": {
-        "faithfulness": 0.0,
-        "answer_relevancy": 0.998,
+        "faithfulness": 0.143,
+        "answer_relevancy": 0.985,
         "context_precision": 1.0,
         "context_recall": 1.0
       }
@@ -260,7 +261,7 @@
       "question": "When and where did humans begin domesticating horses?",
       "expected_answer": "Around 4000 BCE in Central Asia, associated with the Botai culture.",
       "path": "text",
-      "answer": "Humans began domesticating horses in central Asia prior to 3500 BCE, based on the earliest archaeological evidence from the Western Eurasian Steppes, particularly the lower Volga-Don region, dating to approximately 4000\u20133500 BCE. [1]",
+      "answer": "Humans began domesticating horses in central Asia prior to 3500 BCE, based on the earliest archaeological evidence from the Western Eurasian Steppes, particularly the lower Volga-Don region, dating to approximately 4000\u20133500 BCE. [2]",
       "cited": [
         "Horse.pdf"
       ],
@@ -270,10 +271,10 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 0.9,
+      "seconds": 1.1,
       "ragas": {
         "faithfulness": 0.667,
-        "answer_relevancy": 0.962,
+        "answer_relevancy": 0.99,
         "context_precision": 0.5,
         "context_recall": 0.0
       }
@@ -297,7 +298,7 @@
       "seconds": 0.8,
       "ragas": {
         "faithfulness": 0.333,
-        "answer_relevancy": 0.798,
+        "answer_relevancy": 0.787,
         "context_precision": 0.0,
         "context_recall": 1.0
       }
@@ -319,10 +320,10 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 0.9,
+      "seconds": 0.8,
       "ragas": {
-        "faithfulness": 0.0,
-        "answer_relevancy": 0.0,
+        "faithfulness": 0.8,
+        "answer_relevancy": 1.0,
         "context_precision": 0.833,
         "context_recall": 1.0
       }
@@ -344,7 +345,7 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 0.4,
+      "seconds": 0.6,
       "ragas": {
         "faithfulness": 1.0,
         "answer_relevancy": 0.877,
@@ -358,7 +359,7 @@
       "question": "Where and when was the steam locomotive invented?",
       "expected_answer": "In the United Kingdom, in 1802.",
       "path": "text",
-      "answer": "The steam locomotive was invented in the United Kingdom in 1802 [1].",
+      "answer": "[1] The steam locomotive was invented in the United Kingdom in 1802.",
       "cited": [
         "Train.pdf"
       ],
@@ -371,11 +372,11 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 0.4,
+      "seconds": 0.8,
       "ragas": {
         "faithfulness": 1.0,
         "answer_relevancy": 0.999,
-        "context_precision": 0.833,
+        "context_precision": 0.333,
         "context_recall": 1.0
       }
     },
@@ -394,7 +395,7 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 0.6,
+      "seconds": 0.7,
       "ragas": {
         "faithfulness": 0.5,
         "answer_relevancy": 0.957,
@@ -408,7 +409,7 @@
       "question": "Is there a photo of a giraffe drinking water? Describe it.",
       "expected_answer": "Yes. A giraffe stretches out its tongue to drink water.",
       "path": "image",
-      "answer": "This photo shows a giraffe extending its long neck to drink from a pond, with clear water contrasting against its brown and white spotted pattern, and the object detector is highly confident it is indeed a giraffe [1].",
+      "answer": "This photo shows a giraffe extending its long neck to drink from a pond, with clear water contrasting against its brown and white spotted body, as detected by the object detector with a confidence of 94%. [1]",
       "cited": [
         "000000235057.jpg"
       ],
@@ -417,10 +418,10 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 4.6,
+      "seconds": 4.0,
       "ragas": {
         "faithfulness": 0.0,
-        "answer_relevancy": 0.612,
+        "answer_relevancy": 0.502,
         "context_precision": 0.0,
         "context_recall": 0.0
       }
@@ -440,10 +441,10 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 2.0,
+      "seconds": 1.2,
       "ragas": {
         "faithfulness": 0.5,
-        "answer_relevancy": 0.678,
+        "answer_relevancy": 0.647,
         "context_precision": 1.0,
         "context_recall": 1.0
       }
@@ -454,19 +455,19 @@
       "question": "Which photo shows a baby elephant being fed?",
       "expected_answer": "A baby elephant is being fed from a bottle of milk.",
       "path": "image",
-      "answer": "This photo shows a baby elephant being protected and comforted by its mother, not fed, as the mother elephant is curled around her calf with her trunk, not feeding the calf. [1]",
+      "answer": "This photo shows an adult elephant, not a baby elephant, as it is not typically depicted in playful gestures and not feeding. [1]",
       "cited": [
         "Elephant.pdf#page14-2"
       ],
       "contexts": [
-        "A mother elephant and her calf share a tender moment, with the calf nestled under the mother's trunk. The mother's trunk is curled upwards, and the calf's trunk is curled downwards, creating a sense of protection and comfort. The mother's trunk is a rich brown, while the calf's trunk is a lighter shade of brown. Objects detected: elephant (0.48)."
+        "A gray elephant stands in a lush green forest, with its trunk curled up in a playful gesture. Objects detected: elephant (0.48)."
       ],
       "right_path": true,
       "right_outcome": false,
-      "seconds": 3.0,
+      "seconds": 1.1,
       "ragas": {
         "faithfulness": 0.0,
-        "answer_relevancy": null,
+        "answer_relevancy": 0.821,
         "context_precision": 0.0,
         "context_recall": 0.0
       }
@@ -486,10 +487,10 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 2.1,
+      "seconds": 1.0,
       "ragas": {
-        "faithfulness": 0.2,
-        "answer_relevancy": 0.589,
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.592,
         "context_precision": 1.0,
         "context_recall": 0.0
       }
@@ -509,9 +510,9 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 1.7,
+      "seconds": 1.0,
       "ragas": {
-        "faithfulness": 0.5,
+        "faithfulness": 0.667,
         "answer_relevancy": 0.656,
         "context_precision": 0.0,
         "context_recall": 0.0
@@ -532,10 +533,10 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 1.9,
+      "seconds": 1.0,
       "ragas": {
         "faithfulness": 1.0,
-        "answer_relevancy": 0.0,
+        "answer_relevancy": 0.845,
         "context_precision": 1.0,
         "context_recall": 1.0
       }
@@ -546,20 +547,20 @@
       "question": "Is there a photo of a cat sitting in a sink?",
       "expected_answer": "Yes. A cat sits in a bathroom sink under the faucet.",
       "path": "image",
-      "answer": "Yes, the photo shows a cat standing on a sink, as the objects detected include a cat with a sink, which is consistent with the question. [1]",
+      "answer": "The photo shows a cat standing on a sink, not sitting on it, as confirmed by the objects detected: cat (0.91) [1].",
       "cited": [
         "000000227044.jpg"
       ],
       "contexts": [
-        "A white and black cat stands on a white sink in a bathroom, with a blue soap dispenser and a glass shelf above it. Objects detected: cat (0.91), bottle (0.64), cup (0.62), sink (0.62)."
+        "A white and black cat stands on a white sink in a bathroom, with a blue toy on the counter and a glass shelf above it. Objects detected: cat (0.91), bottle (0.64), cup (0.62), sink (0.62)."
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 2.0,
+      "seconds": 1.1,
       "ragas": {
-        "faithfulness": 1.0,
-        "answer_relevancy": 0.872,
-        "context_precision": 1.0,
+        "faithfulness": 0.667,
+        "answer_relevancy": 0.0,
+        "context_precision": 0.0,
         "context_recall": 1.0
       }
     },
@@ -569,7 +570,7 @@
       "question": "Which photo shows a cat wearing a hat, and what colour is the hat?",
       "expected_answer": "A black and white cat wears a small purple hat.",
       "path": "image",
-      "answer": "The photo shows a cat wearing a pink hat with a fluffy pom pom, as the objects detected list confirms a pink knit hat. [1]",
+      "answer": "The photo shows a black and white cat wearing a pink hat with a fluffy pom pom, as detected by the object detector [1].",
       "cited": [
         "000000286708.jpg"
       ],
@@ -578,10 +579,10 @@
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 1.9,
+      "seconds": 1.0,
       "ragas": {
         "faithfulness": 1.0,
-        "answer_relevancy": 0.634,
+        "answer_relevancy": 0.758,
         "context_precision": 0.0,
         "context_recall": 0.0
       }
@@ -592,19 +593,19 @@
       "question": "Find a photo of a horse jumping over a bar.",
       "expected_answer": "A horse and rider jump over a bar on a track.",
       "path": "image",
-      "answer": "This photo shows a black horse jumping over a yellow and red obstacle in a horse show, which matches the description of a horse jumping over a bar. [1]",
+      "answer": "This photo shows a black horse jumping over a yellow and red obstacle in a horse show, which answers the question of finding a photo of a horse jumping over a bar. [1]",
       "cited": [
         "000000242678.jpg"
       ],
       "contexts": [
-        "A black horse jumps over a yellow and red obstacle in a horse show, with a scoreboard displaying the time and score of the event. Objects detected: horse (0.9), person (0.79)."
+        "A black horse jumps over a yellow and red obstacle in a horse show, with a photographer capturing the moment. Objects detected: horse (0.9), person (0.79)."
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 1.9,
+      "seconds": 1.1,
       "ragas": {
-        "faithfulness": 0.0,
-        "answer_relevancy": 0.767,
+        "faithfulness": 0.75,
+        "answer_relevancy": 0.937,
         "context_precision": 1.0,
         "context_recall": 0.0
       }
@@ -615,21 +616,21 @@
       "question": "Which photo shows a small pepperoni pizza next to a fork?",
       "expected_answer": "A small pepperoni pizza sits next to a fork.",
       "path": "image",
-      "answer": "This photo shows a small pepperoni pizza next to a fork, as detected by the object detector with high confidence [1].",
+      "answer": "The photo shows a small pepperoni pizza next to a silver fork on a white plate, as detected by the object detector with high confidence [1].",
       "cited": [
         "000000351331.jpg"
       ],
       "contexts": [
-        "A pepperoni pizza with melted cheese and sauce is served on a white plate, accompanied by a silver fork. Objects detected: fork (0.95), pizza (0.91), dining table (0.64)."
+        "A pepperoni pizza with melted cheese sits on a white plate, accompanied by a silver fork. Objects detected: fork (0.95), pizza (0.91), dining table (0.64)."
       ],
       "right_path": true,
       "right_outcome": true,
-      "seconds": 1.8,
+      "seconds": 1.1,
       "ragas": {
         "faithfulness": 0.0,
-        "answer_relevancy": 0.648,
-        "context_precision": 0.0,
-        "context_recall": 0.0
+        "answer_relevancy": 0.577,
+        "context_precision": 1.0,
+        "context_recall": 1.0
       }
     },
     {
@@ -638,18 +639,18 @@
       "question": "Find a photo of a green and yellow train.",
       "expected_answer": "A green and yellow train travels past a platform.",
       "path": "image",
-      "answer": "This photo depicts two trains, one green and one purple, parked on a track with a person and a handbag in the foreground, not a green and yellow train as the question asked. [1]",
+      "answer": "This photo contains a green train which matches the description you are looking for [1].",
       "cited": [
         "000000482585.jpg"
       ],
       "contexts": [
-        "Two trains, one green and one purple, are parked on a track with a platform in the foreground. Objects detected: train (0.94), person (0.82), handbag (0.46)."
+        "Two trains, one green and one purple, are parked on a track with a person walking by. Objects detected: train (0.94), person (0.82), handbag (0.46)."
       ],
       "right_path": true,
       "right_outcome": false,
-      "seconds": 2.0,
+      "seconds": 1.3,
       "ragas": {
-        "faithfulness": 0.0,
+        "faithfulness": 0.333,
         "answer_relevancy": 0.0,
         "context_precision": 0.0,
         "context_recall": 0.0
@@ -661,19 +662,19 @@
       "question": "Is there a photo of a small red propeller airplane? Where is it?",
       "expected_answer": "Yes. A small red propeller airplane sits on an airport runway.",
       "path": "image",
-      "answer": "This photo shows a small red propeller airplane flying through the sky from left to right with its wings spread wide, as indicated by the object detector which is very confident (0.91) that the main object in the image is an airplane. [1]",
+      "answer": "This photo shows a small red propeller airplane flying over a body of water, moving from left to right, as indicated by the object detector which is very confident (0.91) that the main object in the image is an airplane. [1]",
       "cited": [
         "Airplane.pdf#page4-1"
       ],
       "contexts": [
-        "A red and yellow propeller plane soars through the sky, moving from left to right with its wings spread wide. Objects detected: airplane (0.91)."
+        "A red and yellow propeller plane with a blue nose and tail is flying over a body of water, moving from left to right. Objects detected: airplane (0.91)."
       ],
       "right_path": true,
       "right_outcome": false,
-      "seconds": 2.2,
+      "seconds": 1.3,
       "ragas": {
-        "faithfulness": 0.5,
-        "answer_relevancy": 0.634,
+        "faithfulness": 0.25,
+        "answer_relevancy": 0.64,
         "context_precision": 0.0,
         "context_recall": 0.0
       }
@@ -684,19 +685,19 @@
       "question": "Find a photo where a moped is parked next to bicycles.",
       "expected_answer": "A moped is parked next to bicycles on a sidewalk.",
       "path": "image",
-      "answer": "This photo shows a yellow Suzuki motorcycle parked next to bicycles on a brick sidewalk, which matches the description of a moped parked next to bicycles. [1]",
+      "answer": "This photo shows a yellow Suzuki motorcycle parked next to other motorcycles, including a blue one and a red one, which can be considered as bicycles, parked on a brick sidewalk. [1]",
       "cited": [
         "000000266400.jpg"
       ],
       "contexts": [
-        "A yellow Suzuki motorcycle is parked on a brick sidewalk, facing the camera. Objects detected: motorcycle (0.93), person (0.77), bicycle (0.4)."
+        "A yellow Suzuki motorcycle is parked on a brick sidewalk, facing the camera. The motorcycle is surrounded by other motorcycles, including a blue one and a red one. Objects detected: motorcycle (0.93), person (0.77), bicycle (0.4)."
       ],
       "right_path": true,
       "right_outcome": false,
-      "seconds": 1.8,
+      "seconds": 1.2,
       "ragas": {
-        "faithfulness": 0.25,
-        "answer_relevancy": 0.888,
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.0,
         "context_precision": 1.0,
         "context_recall": 0.0
       }

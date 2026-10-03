@@ -7,10 +7,11 @@ MIN_IMAGE_SIZE = 100  # pixels; smaller pictures are usually icons, logos or bul
 
 
 def parse_pdf(path, extracted_dir):
-    """Return (pages, images) for one PDF.
+    """Return (pages, images, page_count) for one PDF.
 
-    pages  - one entry per page that has text
-    images - one entry per picture, saved as its own file in extracted_dir
+    pages      - one entry per page that has text
+    images     - one entry per picture, saved as its own file in extracted_dir
+    page_count - how many pages the PDF has (for the sources table)
     """
     path = Path(path)
     extracted_dir = Path(extracted_dir)
@@ -44,5 +45,6 @@ def parse_pdf(path, extracted_dir):
                     "path": str(image_path),
                     "origin": "pdf",
                 })
+        page_count = len(pdf)
 
-    return pages, images
+    return pages, images, page_count

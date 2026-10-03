@@ -50,7 +50,7 @@ def text_sources(chunks):
     # Each source has: a label the model sees, the text, and what to show as the citation
     return [
         {
-            "label": f"{c['doc_id']}, page {c['page']}",
+            "label": f"{c['source']}, page {c['page']}",
             "text": c["text"],
             "cite": {"source": c["source"], "page": c["page"], "chunk_id": c["chunk_id"]},
         }
