@@ -64,10 +64,29 @@ def chunk_pages(pages):
         for n, text in enumerate(chunk_page(page["text"]), start=1):
             chunks.append({
                 "chunk_id": f"{page['doc_id']}-p{page['page']}-c{n}",
-                "doc_id": page["doc_id"],
                 "source": page["source"],
                 "page": page["page"],
-                "type": "text",
+                "kind": "text",    # written text from a document
+                "image_id": None,
                 "text": text,
             })
+    return chunks
+
+
+def chunks_from_images(images):
+    """Each image's caption and OCR text become text chunks of their own, linked back to the image.
+    Example: the red airplane photo gets "...#caption" (moondream's description) and "...#ocr" ("BAE SYSTEMS")."""
+    chunks = []
+    for image in images:
+        for kind in ("caption", "ocr"):
+            text = image.get("ocr_text" if kind == "ocr" else "caption")
+            if text:
+                chunks.append({
+                    "chunk_id": f"{image['image_id']}#{kind}",
+                    "source": image["source"],
+                    "page": image["page"],
+                    "kind": kind,
+                    "image_id": image["image_id"],
+                    "text": clean(text),
+                })
     return chunks
