@@ -28,44 +28,26 @@ $ curl -s -X POST localhost:8000/query -H "Content-Type: application/json" \
 
 ## Architecture
 
-```
-INGESTION (offline, once)
-  data/raw/ ──► router ──┬── PDF   ──► PyMuPDF: page text ───────────────────────────────────────────┐
-                         │             + embedded pictures ──┐                                         │
-                         ├── photo ──► loaded directly ──────┴─► all images ──► OCR (only if text) ───┤
-                         │             (skips the PDF reader)       │                                  │
-                         │                                          └─► moondream captions every image ┤
-                         ├── text  ──► read directly ──────────────────────────────────────────────────┤
-                         └── other ──► skipped and logged                                              ▼
-       text embeddings (BGE-small): document chunks + captions + OCR text, each linked to its source and page
-       image embeddings (CLIP): every image
-       ──► data plane: pgvector vectors · blob store (data/blobs/, one copy per file) · sources metadata table
+### Ingestion (offline, run once)
 
-SERVING (per question)
-  POST /query ──► guardrail (empty / >500 characters → HTTP 400)
-              ──► LangGraph agent:
-                    decide ──"text"──► search document chunks ──► keep strong matches ──────────────────┐
-                           ──"image"─► search images: CLIP + captions/OCR text, merged by rank ──►      │
-                                       YOLO tool keeps photos with the right objects ──►                │
-                                       the best photo's stored caption ─────────────────────────────────┤
-                                                                                                         ▼
-                                                                     qwen2.5:3b answers from the sources, with [n] citations
-              ──► log one JSON line: request id, path, tokens, latency, cost
+![Ingestion pipeline: router, PDF/image/text paths, OCR, VLM captioning, text and image embeddings, data plane](docs/images/ingestion.png)
 
-DATA PLANE
-  pgvector: text_chunks (kind = text / caption / ocr) and images (with caption, OCR text, blob path)
-  sources:  one row per input file (type, blob path, fingerprint, pages); every vector links back to it
-  blob store: data/blobs/<sha256>.<ext>   ·   request log: logs/requests.jsonl
-```
+Every file goes through a type router. PDF text is chunked; photos and PDF pictures form one image stream that gets OCR (only where there is text) and a moondream caption. Document chunks, captions and OCR text are embedded as text (BGE), every image is embedded with CLIP, and everything lands in the data plane, where each vector links back to its source file, page and caption.
+
+### Serving (per question)
+
+![LangGraph agent: decide, retrieve text or images, YOLO tool, stored caption, cited answer](docs/images/agent.png)
+
+The agent picks the text or image path. Image questions use CLIP plus caption search, the YOLO tool keeps the best photo that really contains the right objects, and the answer is written from that photo's stored caption, so no vision-language model runs at question time. Every request writes one line to `logs/requests.jsonl`.
 
 **Models** (all through [Ollama](https://ollama.com) or sentence-transformers, all local):
 
 | Job | Model | Why |
 |---|---|---|
-| Text embeddings | `BAAI/bge-small-en-v1.5` | Small and fast; strong retrieval quality |
+| Text embeddings (chunks, captions, OCR text) | `BAAI/bge-small-en-v1.5` | Small and fast; strong retrieval quality |
 | Image + image-search embeddings | `clip-ViT-B-32` | Puts photos and text in the same vector space |
 | Vision tool | YOLO11m (COCO, 80 objects) | ~24 ms per image; the nano version missed small objects |
-| Describing photos | `moondream` (1.8B) | Fits on a 4 GB GPU; LLaVA 7B needs 5–6 GB |
+| Captioning every image (at ingestion) | `moondream` (1.8B) | Fits on a 4 GB GPU; LLaVA 7B needs 5–6 GB |
 | Deciding, tool calls, answers | `qwen2.5:3b` | Follows instructions and supports tool calling; moondream can't answer text-only questions |
 
 ## Results
