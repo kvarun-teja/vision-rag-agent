@@ -10,6 +10,12 @@ An agent decides for each question how to answer it:
 
 Everything runs **locally on a 4 GB laptop GPU**: no API keys, no data leaves the machine. It is served as a **FastAPI** service with request logging and a guardrail, and measured with **RAGAS** plus exact checks on a hand-built eval set.
 
+## Live demo
+
+**[Try the interface](https://kvarun-teja.github.io/vision-rag-agent/demo/)**: drop in your own PDF, ask questions, and see the sentence each answer came from, highlighted on the page.
+
+The demo is a static web page, so the AI models don't run there. Answers about the sample document (Wikipedia's "Giraffe") come from this project's agent. Questions about your own file use a simple search in your browser that quotes the closest sentence, and your file never leaves your browser. For answers from the full agent, run the project locally (see [How to run it](#how-to-run-it)).
+
 ## Example
 
 ```
