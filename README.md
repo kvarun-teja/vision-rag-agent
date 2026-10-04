@@ -14,7 +14,9 @@ Everything runs **locally on a 4 GB laptop GPU**: no API keys, no data leaves th
 
 **[Try the interface](https://kvarun-teja.github.io/vision-rag-agent/demo/)**: drop in your own PDF, ask questions, and see the sentence each answer came from, highlighted on the page.
 
-The demo is a static web page, so the AI models don't run there. Answers about the sample document (Wikipedia's "Giraffe") come from this project's agent. Questions about your own file use a simple search in your browser that quotes the closest sentence, and your file never leaves your browser. For answers from the full agent, run the project locally (see [How to run it](#how-to-run-it)).
+The demo is a static web page, so the AI models don't run there. Answers about the sample document (Wikipedia's "Giraffe") come from this project's agent. Questions about your own file use a simple search in your browser that quotes the closest sentence, and your file never leaves your browser.
+
+Running the project locally serves the same kind of page at `http://localhost:8000`, connected to the full agent: upload your own PDF and the answers come from the real pipeline (see [How to run it](#how-to-run-it)).
 
 ## Example
 
@@ -90,13 +92,15 @@ Measured on [eval/eval_set.json](eval/eval_set.json): 30 hand-checked questions 
 - **YOLO before the vision-language model.** Image search (CLIP) is fuzzy; YOLO is precise and cheap. Screening 10 candidates with YOLO costs ~0.25 s, while describing one photo with moondream costs ~0.5–1 s and ~740 of its 2,048 tokens. Describing only the top YOLO-confirmed photo was both cheaper and more accurate on the eval set than describing the top search result or letting the language model pick between three.
 - **The agent calls the tool through real tool calling.** qwen is shown a tool description and replies with `find_objects(objects=["dog", "frisbee"])`; our code validates those inputs against YOLO's labels and runs the detector.
 - **Two layers of grounding.** If no chunk scores above a measured cutoff, the model is never called and the system declines. Otherwise the prompt allows only the numbered sources and requires `[n]` citations, which are mapped back to files and pages (numbers that don't exist are ignored).
-- **Thresholds come from measurements, not guesses.** The 0.70 cutoff sits in the gap between answerable (≥ 0.74) and unanswerable (≤ 0.65) questions; top-k came from [retrieval/tune_top_k.py](retrieval/tune_top_k.py).
+- **Thresholds come from measurements, not guesses.** The first cutoff, 0.70, was measured on the Wikipedia questions alone (answerable ≥ 0.74, unanswerable ≤ 0.65). An uploaded resume then showed that it doesn't carry over: a resume packs many short facts into each chunk, so correct answers scored only 0.58–0.74 and most resume questions were declined. The cutoff is now 0.55, just above clearly off-topic questions (≤ 0.53). Near-misses (0.57–0.64) now reach the model, which declined all 7 that were tested, and the eval results didn't change. Top-k came from [retrieval/tune_top_k.py](retrieval/tune_top_k.py).
 
 ## Limitations
 
 - **The RAGAS grader is the same 3B model.** It sometimes gives 0 faithfulness to answers copied word for word from the source, so the exact checks (right path, right source cited, declined when it should) are the more reliable numbers.
 - **CLIP confuses similar photos** (a moped vs. a row of motorcycles), and **YOLO can't see colours**, so colour-specific image questions can pick the wrong photo.
 - **Small models are literal.** The image-answer prompt was tuned on the eval set; with only 13 image questions, treat image scores as indicative.
+- **Routing by wording.** A document question that mentions photos or pictures ("How big was the dataset of underwater pictures?") can be sent down the image path and get a wrong answer.
+- **Citation numbers.** Given a single source, the model sometimes writes [2]; numbers that don't exist are dropped, so that answer shows no source.
 - **Single-user.** One shared database connection and models loaded in one process; fine for a demo, not for heavy traffic.
 
 ## How to run it
@@ -123,7 +127,7 @@ python -m ingestion.run              # ~6 min on a GPU (mostly captioning 501 im
 # add --fresh to drop the tables and rebuild everything from data/raw
 
 # 5. Serve
-uvicorn api.main:app --port 8000     # then open http://localhost:8000/docs
+uvicorn api.main:app --port 8000     # then open http://localhost:8000 (upload page) or /docs (API)
 ```
 
 **Or with Docker Compose** (API on the CPU, Ollama still on the host GPU; after steps 2 and 4's download):
@@ -148,7 +152,7 @@ python -m eval.run_eval              # agent + RAGAS on the 30 eval questions (~
 ingestion/   router, PDF parsing, images, OCR, captions (caption.py), chunking, embedding, blob store, storing, run.py
 retrieval/   the retriever interface + pgvector implementation, top-k tuning
 agent/       llm.py (Ollama calls), generate.py (grounded answers), vision_tool.py (YOLO), graph.py (LangGraph agent)
-api/         FastAPI app: /query, /health, guardrail, request log
+api/         FastAPI app: /query, /upload, /images, /health, guardrail, request log, and the upload page (static/index.html)
 eval/        eval_set.json, run_eval.py, results.json
 scripts/     dataset download and three small concept demos (calling a model, text and image embeddings)
 tests/       pytest checks for ingestion, the blob store and caption/OCR chunks

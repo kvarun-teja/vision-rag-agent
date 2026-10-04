@@ -10,7 +10,8 @@ import config
 from agent.llm import ask_model
 from retrieval.retriever import PgVectorRetriever
 
-MIN_SCORE = 0.70     # answerable eval questions scored 0.74+, unanswerable ones 0.65 or less
+MIN_SCORE = 0.55     # off-topic questions score 0.53 or less; real answers in a resume scored as low as 0.58.
+                     # Near-misses (0.57-0.64) get through, and the model declines them itself (the second layer).
 SCORE_MARGIN = 0.05  # also drop chunks this much weaker than the best one: near-misses confused the model's citations
 NO_ANSWER = "I couldn't find this in the documents."
 NO_USAGE = {"prompt_tokens": 0, "answer_tokens": 0}
@@ -81,7 +82,7 @@ def answer_from_sources(question, sources, system=SYSTEM_PROMPT):
     if not sources:
         return NO_ANSWER, [], NO_USAGE  # grounding rule 1: nothing to go on -> don't ask, decline
     answer, usage = ask_model(config.TEXT_MODEL, build_prompt(question, sources), system=system)
-    if answer.startswith(NO_ANSWER):
+    if answer.startswith(NO_ANSWER.rstrip(".")):  # the model sometimes drops the full stop: "...documents [1]"
         return NO_ANSWER, [], usage  # a "can't find it" answer shouldn't point at any sources
     return answer, find_citations(answer, sources), usage
 

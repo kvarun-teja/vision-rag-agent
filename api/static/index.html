@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vision RAG Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300..700;1,7..72,300..700&family=Hanken+Grotesk:wght@400..700&display=swap">
+<style>
+/* The same look as the GitHub demo: paper, ink, and one highlighter colour. */
+:root {
+  --paper: #FBFBF9; --ink: #1A1F27; --graphite: #5C636E; --rule: #E1E2DC; --marker: #F5D547; --sheet: #FFFFFF;
+  --sheet-shadow: 0 1px 2px rgba(26, 31, 39, 0.06), 0 18px 40px -14px rgba(26, 31, 39, 0.22);
+  --read: "Literata", Georgia, "Times New Roman", serif;
+  --ui: "Hanken Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --paper: #141516; --ink: #ECEAE4; --graphite: #9DA2A8; --rule: #2B2E31; --marker: #E9C443; --sheet: #F4F2EC;
+          --sheet-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 22px 46px -16px rgba(0, 0, 0, 0.7); color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { height: 100%; margin: 0; }
+body { background: var(--paper); color: var(--ink); font-family: var(--ui); font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+button, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+.app { height: 100%; display: grid; grid-template-rows: auto minmax(0, 1fr); max-width: 1240px; margin: 0 auto; padding-inline: clamp(16px, 3vw, 40px); }
+.bar { display: flex; align-items: center; gap: 12px; padding-block: 18px; border-bottom: 1px solid var(--rule); }
+.wordmark { font-family: var(--read); font-weight: 600; font-size: 19px; }
+.crumb { color: var(--graphite); }
+.bar .grow { flex: 1; }
+.text-btn { border: 0; background: none; padding: 6px 2px; font-weight: 600; font-size: 14px; }
+.text-btn:hover { background-image: linear-gradient(transparent 62%, color-mix(in srgb, var(--marker) 70%, transparent) 62%); }
+.btn { display: inline-flex; align-items: center; border: 0; border-radius: 10px; padding: 11px 18px; background: var(--ink); color: var(--paper); font-weight: 600; font-size: 15px; }
+.btn:disabled { opacity: .35; cursor: not-allowed; }
+
+/* Upload screen */
+.upload { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: clamp(32px, 6vw, 96px); align-items: center; padding-block: clamp(32px, 8vh, 96px); }
+.upload h1 { margin: 0; font-family: var(--read); font-weight: 600; font-size: clamp(38px, 5.2vw, 68px); line-height: 1.04; letter-spacing: -0.02em; }
+.upload h1 span { display: block; font-style: italic; font-weight: 400; }
+.upload .lead { margin: 20px 0 0; max-width: 40ch; font-family: var(--read); font-size: 19px; line-height: 1.6; color: var(--graphite); }
+.upload .lead mark { background: color-mix(in srgb, var(--marker) 65%, transparent); color: var(--ink); padding: 0 2px; }
+.drop { display: grid; justify-items: center; gap: 22px; }
+.sheet { position: relative; width: min(300px, 78vw); aspect-ratio: 8.5 / 11; background: var(--sheet); border-radius: 3px; box-shadow: var(--sheet-shadow); transform: rotate(-1.6deg); transition: transform .35s; }
+.drop.is-over .sheet { transform: rotate(0deg) translateY(-6px); }
+.lines { position: absolute; inset: 14% 13% auto; display: grid; gap: 9px; }
+.lines i { display: block; height: 6px; border-radius: 3px; background: #E9E8E2; }
+.lines i.h { height: 13px; width: 55%; background: #DCDBD4; margin-bottom: 8px; }
+.lines i.m { background: color-mix(in srgb, var(--marker) 75%, #E9E8E2); }
+.lines i:nth-child(4n) { width: 82%; }
+.drop-copy { display: grid; justify-items: center; gap: 10px; text-align: center; }
+.drop-copy p { margin: 0; color: var(--graphite); font-size: 14px; }
+.drop-copy input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.working { width: min(300px, 78vw); display: grid; gap: 8px; text-align: center; }
+.working p { margin: 0; font-size: 14px; color: var(--graphite); font-variant-numeric: tabular-nums; }
+.problem { color: var(--ink); font-weight: 600; }
+.scan { display: block; height: 3px; width: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--marker), transparent); animation: scan 1.1s ease-in-out infinite alternate; transform-origin: left; }
+@keyframes scan { from { transform: scaleX(.2); } to { transform: scaleX(1); } }
+
+/* Ask screen */
+.ask { display: grid; grid-template-columns: 280px minmax(0, 700px); gap: clamp(28px, 5vw, 72px); min-height: 0; }
+.side { padding-block: 32px; display: grid; gap: 20px; align-content: start; overflow-y: auto; min-height: 0; }
+.cover { position: relative; width: 120px; aspect-ratio: 8.5 / 11; background: var(--sheet); border-radius: 2px; box-shadow: var(--sheet-shadow); }
+.cover .lines { gap: 6px; } .cover .lines i { height: 4px; } .cover .lines i.h { height: 8px; margin-bottom: 4px; }
+.doc-title { margin: 0; font-family: var(--read); font-weight: 600; font-size: 30px; line-height: 1.1; overflow-wrap: anywhere; }
+.doc-meta { margin: 6px 0 0; color: var(--graphite); font-size: 14px; font-variant-numeric: tabular-nums; }
+.ready { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--graphite); }
+.ready::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #3E9A5C; }
+.side h2 { margin: 0 0 4px; font-size: 13px; font-weight: 600; color: var(--graphite); }
+.side .fine { margin: 0; font-size: 13px; line-height: 1.5; color: var(--graphite); }
+.try { width: 100%; text-align: left; border: 0; border-top: 1px solid var(--rule); background: none; padding: 11px 0; font-size: 14.5px; line-height: 1.4; }
+.try:last-child { border-bottom: 1px solid var(--rule); }
+.try:hover span { background-image: linear-gradient(transparent 62%, color-mix(in srgb, var(--marker) 70%, transparent) 62%); }
+
+.reading { display: grid; grid-template-rows: minmax(0, 1fr) auto; min-height: 0; }
+.thread { overflow-y: auto; min-height: 0; padding-block: 32px 24px; display: grid; gap: 40px; align-content: start; }
+.turn { display: grid; gap: 12px; }
+.question { margin: 0; font-size: 18px; font-weight: 600; line-height: 1.4; }
+.answer { margin: 0; font-family: var(--read); font-size: 19px; line-height: 1.7; }
+.answer.quiet { color: var(--graphite); font-style: italic; }
+.cite { padding: 0 3px; margin-left: 2px; font-family: var(--ui); font-size: 12.5px; font-weight: 700; background: linear-gradient(transparent 50%, color-mix(in srgb, var(--marker) 80%, transparent) 50%); border-radius: 2px; white-space: nowrap; }
+.clip { margin: 0; background: var(--sheet); border-radius: 3px; box-shadow: var(--sheet-shadow); overflow: hidden; }
+.text-clip { padding: 16px 22px; font-family: var(--read); font-size: 15.5px; line-height: 1.75; color: #3B4049; }
+.text-clip mark { background: color-mix(in srgb, var(--marker) 65%, transparent); color: #1A1F27; padding: 1px 2px; border-radius: 2px; }
+.photo img { display: block; width: 100%; height: 300px; object-fit: contain; }
+.clip-foot { font-size: 13px; color: var(--graphite); }
+.clip-foot b { color: var(--ink); font-weight: 600; }
+.route { font-size: 13px; color: var(--graphite); font-variant-numeric: tabular-nums; border-top: 1px dashed var(--rule); padding-top: 10px; }
+.route b { color: var(--ink); font-weight: 600; }
+.thinking { display: grid; gap: 10px; color: var(--graphite); font-family: var(--read); font-style: italic; font-size: 17px; }
+.thinking .scan { width: 120px; }
+.empty-thread p { margin: 0; font-family: var(--read); font-size: 22px; line-height: 1.4; max-width: 30ch; }
+
+.composer { padding-block: 14px 22px; background: linear-gradient(to top, var(--paper) 70%, transparent); }
+.field { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: end; border: 1px solid var(--rule); background: var(--sheet); border-radius: 14px; padding: 8px 8px 8px 16px; color: #1A1F27; }
+.field:focus-within { border-color: #9DA2A8; box-shadow: 0 6px 24px -10px rgba(26, 31, 39, 0.25); }
+.field textarea { border: 0; outline: 0; background: transparent; resize: none; padding: 8px 0; max-height: 160px; font-size: 16px; color: #1A1F27; }
+.field textarea::placeholder { color: #7B818B; }
+.field .btn { background: #1A1F27; color: #FBFBF9; }
+.limit { margin: 6px 4px 0; font-size: 12.5px; color: var(--graphite); }
+
+@media (max-width: 860px) {
+  .app { height: auto; min-height: 100%; }
+  .upload, .ask { grid-template-columns: minmax(0, 1fr); }
+  .side { overflow: visible; padding-bottom: 0; }
+  .reading { display: block; }
+  .thread { overflow: visible; }
+  .composer { position: sticky; bottom: 0; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="bar">
+    <span class="wordmark">Vision RAG</span>
+    <span class="crumb">running on this computer</span>
+    <span class="grow"></span>
+    <button class="text-btn" id="newDoc" hidden>New document</button>
+  </header>
+
+  <section class="upload" id="uploadScreen">
+    <div>
+      <h1>Drop in a document.<span>Ask it anything.</span></h1>
+      <p class="lead">Your file is read, split into passages and embedded on this computer. Every answer <mark>cites the page it came from</mark>.</p>
+    </div>
+    <div class="drop" id="drop">
+      <div class="sheet"><div class="lines"><i class="h"></i><i></i><i></i><i class="m"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+      <div class="drop-copy" id="dropCopy">
+        <label class="btn" for="fileInput">Choose a file</label>
+        <input id="fileInput" type="file" accept=".pdf,.txt,.md">
+        <p>or drop a PDF, TXT or Markdown file on the page</p>
+      </div>
+      <div class="working" id="working" hidden>
+        <span class="scan"></span>
+        <p id="workingText"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ask" id="askScreen" hidden>
+    <aside class="side">
+      <div class="cover"><div class="lines"><i class="h"></i><i></i><i></i><i class="m"></i><i></i><i></i><i></i><i></i></div></div>
+      <div>
+        <h1 class="doc-title" id="docTitle"></h1>
+        <p class="doc-meta" id="docMeta"></p>
+      </div>
+      <span class="ready" id="ready"></span>
+      <p class="fine" id="library"></p>
+      <div>
+        <h2>Try a photo question</h2>
+        <button class="try"><span>Which photo shows a cat wearing a hat, and what colour is the hat?</span></button>
+        <button class="try"><span>Which photo shows a dog holding a frisbee, and what colour is the frisbee?</span></button>
+      </div>
+      <p class="fine">Answers come from qwen2.5:3b through Ollama, on this computer. Nothing is sent anywhere else.</p>
+    </aside>
+    <div class="reading">
+      <div class="thread" id="thread"></div>
+      <form class="composer" id="composer">
+        <div class="field">
+          <textarea id="question" rows="1" placeholder="Ask a question" aria-label="Your question"></textarea>
+          <button class="btn" id="askBtn" type="submit" disabled>Ask</button>
+        </div>
+        <p class="limit" id="limit" hidden></p>
+      </form>
+    </div>
+  </section>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const MAX_CHARS = 500;  // the API's guardrail limit
+
+function escapeHTML(text) {
+  return text.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+}
+
+// ---------- Upload ----------
+
+async function upload(file) {
+  $("dropCopy").hidden = true;
+  $("working").hidden = false;
+  const start = Date.now();
+  const tick = () => { $("workingText").textContent = `Reading ${file.name}, splitting it into passages and embedding them… ${Math.round((Date.now() - start) / 1000)} s`; };
+  tick();
+  const timer = setInterval(tick, 1000);
+  try {
+    const response = await fetch(`/upload?name=${encodeURIComponent(file.name)}`, { method: "POST", body: file });
+    const info = await response.json();
+    if (!response.ok) throw new Error(info.detail);
+    openDoc(info);
+  } catch (error) {
+    $("workingText").innerHTML = `<span class="problem">${escapeHTML(error.message)}</span>`;
+    $("dropCopy").hidden = false;
+  } finally {
+    clearInterval(timer);
+  }
+}
+
+function openDoc(info) {
+  const kind = info.name.toLowerCase().endsWith(".pdf") ? "PDF" : "Text";
+  $("docTitle").textContent = info.name.replace(/\.[^.]+$/, "");
+  $("docMeta").textContent = `${kind} · ${info.pages} page${info.pages === 1 ? "" : "s"} · ${info.passages} passages`;
+  $("ready").textContent = `Read in ${info.seconds} s, ready for questions`;
+  const others = info.library.documents - 1;
+  $("library").textContent = `The agent also searches ${others} Wikipedia articles and ${info.library.photos} COCO photos, so you can ask about photos too.`;
+  $("thread").innerHTML = `<div class="empty-thread"><p>Ask anything about ${escapeHTML($("docTitle").textContent)}.</p></div>`;
+  $("uploadScreen").hidden = true;
+  $("askScreen").hidden = false;
+  $("newDoc").hidden = false;
+  $("question").focus();
+}
+
+$("fileInput").addEventListener("change", (e) => e.target.files[0] && upload(e.target.files[0]));
+document.addEventListener("dragover", (e) => { e.preventDefault(); $("drop").classList.add("is-over"); });
+document.addEventListener("dragleave", () => $("drop").classList.remove("is-over"));
+document.addEventListener("drop", (e) => {
+  e.preventDefault();
+  $("drop").classList.remove("is-over");
+  if (!$("uploadScreen").hidden && e.dataTransfer.files[0]) upload(e.dataTransfer.files[0]);
+});
+$("newDoc").addEventListener("click", () => {
+  $("askScreen").hidden = true;
+  $("uploadScreen").hidden = false;
+  $("newDoc").hidden = true;
+  $("dropCopy").hidden = false;
+  $("working").hidden = true;
+  $("fileInput").value = "";
+});
+
+// ---------- Questions and answers ----------
+
+// The sentence in a passage that shares the most words with the answer: that's the one we highlight.
+// Example: answer "nnU-Net and SegMambaV2 reached a Dice score of 0.92" -> the bullet that mentions both models.
+// Filler words don't count, and each word counts once, so a bullet can't win just by saying "the" twice.
+const FILLER = new Set("the and for with from that this was were are has have had into its their which what".split(" "));
+function bestSentence(passage, answer) {
+  const words = (text) => new Set((text.toLowerCase().match(/[a-z0-9.%]+/g) || [])
+    .map((w) => w.replace(/\.+$/, "")).filter((w) => w.length > 2 && !FILLER.has(w)));  // "0.92." -> "0.92"
+  const wanted = words(answer);
+  let best = "", bestScore = -1;
+  for (const sentence of passage.split(/(?<=[.!?])\s+|\s*•\s/)) {
+    const score = [...words(sentence)].filter((w) => wanted.has(w)).length;
+    if (score > bestScore) { best = sentence; bestScore = score; }
+  }
+  const cut = best.split(" ");
+  return cut.length > 60 ? cut.slice(0, 60).join(" ") + "…" : best;
+}
+
+function answerHTML(data) {
+  // [n] becomes a marker only if source n exists; the model sometimes writes [2] when it was given one source
+  const numbers = data.citations.map((c) => String(c.n));
+  const cites = (text) => escapeHTML(text).replace(/\s*\[(\d+)\]/g, (all, n) => numbers.includes(n) ? ` <span class="cite">${n}</span>` : "");
+  const seconds = (data.latency_ms / 1000).toFixed(1);
+  if (data.answer.startsWith("I couldn't find this")) {
+    return `<p class="answer quiet">${escapeHTML(data.answer)}</p>
+      <div class="route">Nothing relevant was found, so the agent declined instead of guessing · ${seconds} s</div>`;
+  }
+  if (!data.citations.length) {
+    return `<p class="answer">${cites(data.answer)}</p>
+      <div class="route">The answer didn't point at a valid source number, so no passage is shown · ${seconds} s</div>`;
+  }
+  let html = `<p class="answer">${cites(data.answer)}</p>`;
+  for (const c of data.citations) {
+    if (c.image_id) {
+      const objects = (c.quote.match(/Objects detected: (.*?)\.(\s|$)/) || [])[1];
+      html += `<figure class="clip photo"><img src="/images/${encodeURIComponent(c.image_id)}" alt="Photo ${escapeHTML(c.image_id)}"></figure>
+        <div class="clip-foot"><span class="cite">${c.n}</span> <b>Photo ${escapeHTML(c.image_id)}</b>${objects ? ` · YOLO found: ${escapeHTML(objects)}` : ""}</div>`;
+    } else {
+      html += `<figure class="clip text-clip">…<mark>${escapeHTML(bestSentence(c.quote, data.answer))}</mark>…</figure>
+        <div class="clip-foot"><span class="cite">${c.n}</span> <b>${escapeHTML(c.source)}</b>, page ${c.page}</div>`;
+    }
+  }
+  const route = data.path === "image"
+    ? "<b>Image path</b>: CLIP photo search, then the YOLO tool, then the photo's stored caption"
+    : "<b>Text path</b>: searched the documents, then qwen2.5:3b answered from the best passages";
+  return html + `<div class="route">${route} · ${seconds} s · ${data.tokens.toLocaleString()} tokens</div>`;
+}
+
+async function ask(question) {
+  const thread = $("thread");
+  thread.querySelector(".empty-thread")?.remove();
+  const turn = document.createElement("div");
+  turn.className = "turn";
+  turn.innerHTML = `<p class="question">${escapeHTML(question)}</p><div class="thinking">Searching…<span class="scan"></span></div>`;
+  thread.append(turn);
+  turn.scrollIntoView({ behavior: "smooth", block: "start" });
+  try {
+    const response = await fetch("/query", {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question }),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.detail);
+    turn.querySelector(".thinking").outerHTML = answerHTML(data);
+  } catch (error) {
+    turn.querySelector(".thinking").outerHTML = `<p class="answer quiet">${escapeHTML(error.message)}</p>`;
+  }
+  const image = turn.querySelector("img");
+  if (image && !image.complete) await new Promise((done) => { image.onload = image.onerror = done; });  // its height counts
+  turn.scrollIntoView({ behavior: "smooth", block: turn.offsetHeight <= thread.clientHeight ? "end" : "start" });
+}
+
+const box = $("question");
+function update() {
+  box.style.height = "auto";
+  box.style.height = box.scrollHeight + "px";
+  const length = box.value.trim().length;
+  $("askBtn").disabled = length === 0 || length > MAX_CHARS;
+  $("limit").hidden = length <= MAX_CHARS - 50;
+  $("limit").textContent = `${length} / ${MAX_CHARS} characters`;
+}
+box.addEventListener("input", update);
+box.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("composer").requestSubmit(); }
+});
+$("composer").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const question = box.value.trim();
+  if (!question || question.length > MAX_CHARS) return;
+  box.value = "";
+  update();
+  ask(question);
+});
+document.querySelectorAll(".try").forEach((button) => button.addEventListener("click", () => {
+  box.value = button.textContent.trim();
+  update();
+  box.focus();
+}));
+</script>
+</body>
+</html>
