@@ -248,7 +248,7 @@ const wait = (ms) => new Promise((r) => setTimeout(r, reduced ? 0 : ms));
 const LIMIT = 500;
 
 const STOP = new Set(("a an the is are was were be been being of in on to and or for with what which who whom whose where when why how about does do did there this that these those it its they them their " +
-  "can could should would will may might has have had by from at as into than then so such any some all most more much many me my i you your we our please tell say says said").split(" "));
+  "can could should would will may might has have had by from at as into than then so such any some all most more much many me my i you your we our please tell say says said pdf document documents file doc page pages").split(" "));
 function terms(text) {
   return (text.toLowerCase().match(/[a-z0-9]+/g) || [])
     .filter((w) => !STOP.has(w) && w.length > 1)
@@ -256,14 +256,25 @@ function terms(text) {
 }
 
 // ---------- a tiny search over sentences (used for your own files and for free-typed sample questions) ----------
+function splitPassages(text) {
+  // Sentences where the text has full stops. Long runs without them (resumes, slides, lists, tables)
+  // are cut into overlapping 50-word passages, so nothing is thrown away.
+  const out = [];
+  text.split(/(?<=[.!?])\s+(?=[A-Z0-9"“(•])/).forEach((s) => {
+    const words = s.trim().split(/\s+/).filter(Boolean);
+    if (words.length <= 50) {
+      if (words.length >= 4) out.push(words.join(" "));
+      return;
+    }
+    for (let i = 0; i < words.length; i += 40) out.push(words.slice(i, i + 50).join(" "));
+  });
+  return out;
+}
 function buildIndex(pages) {
   const sents = [];
   pages.forEach((p) => {
-    const parts = p.text.split(/(?<=[.!?])\s+(?=[A-Z0-9"“(])/);
-    parts.forEach((s, i) => {
-      const n = s.split(/\s+/).length;
-      if (n >= 5 && n <= 80) sents.push({ page: p.page, text: s.trim(), prev: parts[i - 1] || "", next: parts[i + 1] || "", terms: terms(s) });
-    });
+    const parts = splitPassages(p.text);
+    parts.forEach((s, i) => sents.push({ page: p.page, text: s, prev: parts[i - 1] || "", next: parts[i + 1] || "", terms: terms(s) }));
   });
   const df = new Map();
   sents.forEach((s) => new Set(s.terms).forEach((t) => df.set(t, (df.get(t) || 0) + 1)));
@@ -289,6 +300,18 @@ function searchIndex(index, question) {
     if (!best || score > best.score) best = { ...s, score, matched };
   });
   return best && best.matched / q.length >= 0.5 ? best : null;  // half the question's words must appear
+}
+
+// "What is this about?" can't be answered by finding one sentence, so it gets an overview instead
+const OVERVIEW = /\b(about|summary|summari[sz]e|overview|gist|main (ideas?|topics?|points?)|key points)\b/i;
+const OVERVIEW_WORDS = new Set(["summary", "summarize", "summarise", "overview", "gist", "main", "idea", "topic", "point", "key"]);
+function wantsOverview(question) {
+  return OVERVIEW.test(question) && terms(question).filter((t) => !OVERVIEW_WORDS.has(t)).length === 0;
+}
+function overviewOf(d) {
+  const firstPage = d.index.sents[0].page;
+  const opening = d.index.sents.filter((s) => s.page === firstPage).slice(0, 2).map((s) => s.text).join(" ").split(/\s+/).slice(0, 60).join(" ");
+  return { page: firstPage, opening, topics: topTerms(d.index, 5) };
 }
 
 // ---------- the current document ----------
@@ -339,19 +362,28 @@ function marksHTML(boxes, frame) { // boxes are page fractions; frame is the par
 function answerHTML(t) {
   const q = `<p class="question">${esc(t.q)}</p>`;
   if (!t.found) {
+    const keys = topTerms(doc.index, 5);
     return `${q}<p class="answer quiet">I couldn't find this in ${esc(doc.name)}.</p>
-      <span class="note">Nothing in the document came close enough to answer from, so I didn't guess.</span>`;
+      <span class="note">Nothing in the document came close enough to answer from, so I didn't guess.${keys.length ? " Try asking about one of these:" : ""}</span>
+      ${keys.length ? `<div class="terms">${keys.map((k) => `<button data-term="${esc(k)}">${esc(k)}</button>`).join("")}</div>` : ""}`;
   }
   const cite = `<button class="cite" data-page="${t.page}" aria-label="Open page ${t.page}">p.&nbsp;${t.page}</button>`;
-  const clean = t.answer.replace(/\s*\[\d+\]\s*/g, " ").trim();
-  const text = (t.kind === "quote" ? esc(clean) : esc(clean).replace(/\s*\.$/, "") + ".") + cite;
+  let text;
+  if (t.kind === "overview") {
+    text = `${esc(doc.title)} opens with “${esc(t.quote)}”.` + (t.topics.length ? ` The words it uses most are ${t.topics.map(esc).join(", ")}.` : "");
+  } else {
+    const clean = t.answer.replace(/\s*\[\d+\]\s*/g, " ").trim();
+    text = t.kind === "quote" ? esc(clean) : esc(clean).replace(/\s*\.$/, "") + ".";
+  }
+  text += cite;
   let clip = "";
   if (t.clip) {
     clip = `<button class="clip" data-page="${t.page}" aria-label="Open page ${t.page}"><img src="${t.clip.src}" alt="">${marksHTML(t.boxes, t.clip.box)}</button>`;
   } else if (t.quote) {
     clip = `<button class="clip" data-page="${t.page}" aria-label="Open page ${t.page}"><div class="text-clip">${esc(t.prev)} <mark>${esc(t.quote)}</mark> ${esc(t.next)}</div></button>`;
   }
-  const how = t.kind === "agent" ? `Answered by the project's agent in ${t.seconds.toFixed(1)} s` : "Quoted from the closest sentence";
+  const how = t.kind === "agent" ? `Answered by the project's agent in ${t.seconds.toFixed(1)} s`
+    : t.kind === "overview" ? "From the opening lines and the most used words" : "Quoted from the closest sentence";
   return `${q}<p class="answer">${text}</p>${clip}
     <div class="clip-foot"><span><b>Page ${t.page}</b> of ${doc.pages}</span><span>${how}</span></div>`;
 }
@@ -404,7 +436,11 @@ async function ask(question) {
 
   let turn;
   const real = doc.kind === "sample" ? matchSample(question) : null;
-  if (real) {
+  if (wantsOverview(question) && doc.index.sents.length) {
+    await wait(600);
+    const o = overviewOf(doc);
+    turn = { q: question, found: true, kind: "overview", page: o.page, quote: o.opening, prev: "", next: "", topics: o.topics };
+  } else if (real) {
     await wait(Math.min(1400, real.seconds * 700));
     art.querySelector("#status").textContent = "Writing the answer…";
     await wait(Math.min(900, real.seconds * 500));
